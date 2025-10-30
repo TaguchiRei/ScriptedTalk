@@ -1,4 +1,4 @@
-namespace ScriptedTalkSystem.TalkSystem.Entity.Text
+namespace ScriptedTalk.Code.Scripts.TalkSystem.Entity.Text
 {
     /// <summary>
     /// 会話文のデータ

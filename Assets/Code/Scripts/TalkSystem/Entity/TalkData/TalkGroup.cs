@@ -11,8 +11,10 @@ namespace ScriptedTalk.TalkSystem.Entity.TalkData
     {
         /// <summary> 会話の内容 </summary>
         public TalkLine[] TalkLines { get; private set; }
+
         /// <summary> 分岐かどうか </summary>
         public bool Branch { get; private set; }
+
         /// <summary> 選択肢と次にどのTalkGroupにつながるか </summary>
         public List<Selection> Selections { get; private set; }
 
@@ -25,26 +27,24 @@ namespace ScriptedTalk.TalkSystem.Entity.TalkData
             Selections = selections;
         }
 
+        /// <summary>
+        /// 次の行を取得する。falseを返したときは最後の行に来た時。
+        /// </summary>
+        /// <param name="talkLine"></param>
+        /// <returns></returns>
         public bool TryGetNextLine(out TalkLine talkLine)
         {
             _readingLine++;
-            if (_readingLine < TalkLines.Length)
-            {
-                talkLine = TalkLines[_readingLine];
-                return true;
-            }
-            else
+
+            if (_readingLine >= TalkLines.Length)
             {
                 talkLine = null;
                 return false;
             }
-        }
 
-        public TalkLine GetLineForIndex(int index)
-        {
-            return TalkLines[index];
+            talkLine = TalkLines[_readingLine];
+            return _readingLine < TalkLines.Length - 1;
         }
-        
 
         [Serializable]
         public class Selection

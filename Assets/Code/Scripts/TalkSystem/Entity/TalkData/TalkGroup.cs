@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace ScriptedTalk.TalkSystem.Entity.TalkData
@@ -5,6 +6,7 @@ namespace ScriptedTalk.TalkSystem.Entity.TalkData
     /// <summary>
     /// 前回の続きまたは会話の開始から次の分岐または終了までの単位
     /// </summary>
+    [Serializable]
     public class TalkGroup
     {
         /// <summary> 会話の内容 </summary>

@@ -1,19 +1,24 @@
+using System;
 using ScriptedTalk.Code.Scripts.TalkSystem.Entity.Event;
-using ScriptedTalk.Code.Scripts.TalkSystem.Entity.Text;
 
 namespace ScriptedTalk.TalkSystem.Entity.TalkData
 {
     /// <summary>
     /// 会話１行分のデータ
     /// </summary>
+    [Serializable]
     public class TalkLine
     {
-        public TextData  TextData { get; private set; }
-        public EventData EventData { get; private set; }
+        public string Text { get; private set; }
+        public int[] CharacterID { get; private set; }
 
-        public TalkLine()
+        public EventData[] EventData { get; private set; }
+
+        public TalkLine(string text, int[] characterID, EventData[] eventData)
         {
-            
+            Text = text;
+            CharacterID = characterID;
+            EventData = eventData;
         }
     }
 }

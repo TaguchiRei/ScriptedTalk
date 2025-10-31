@@ -1,10 +1,6 @@
 using System.Collections.Generic;
-using System.Threading;
-using Cysharp.Threading.Tasks;
-using NUnit.Framework;
 using ScriptedTalk.Code.Scripts.TalkSystem.Entity.Event;
 using ScriptedTalk.TalkSystem.Entity.Character;
-using UnityEngine;
 
 namespace ScriptedTalk.TalkSystem.UseCase.Character
 {

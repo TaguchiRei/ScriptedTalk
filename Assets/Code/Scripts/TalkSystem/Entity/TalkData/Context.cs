@@ -17,11 +17,12 @@ namespace ScriptedTalk.TalkSystem.Entity.TalkData
         /// 指定した行を取得する
         /// </summary>
         /// <param name="readingGroup"></param>
+        /// <param name="readingLine"></param>
         /// <param name="talkLine"></param>
         /// <returns>falseを返したときはグループの文末</returns>
-        public bool TryGetLine(int readingGroup, out TalkLine talkLine)
+        public bool TryGetLine(int readingGroup,int readingLine, out TalkLine talkLine)
         {
-            return TalkGroups[readingGroup].TryGetNextLine(out talkLine);
+            return TalkGroups[readingGroup].TryGetLine(readingLine, out talkLine);
         }
 
         /// <summary>

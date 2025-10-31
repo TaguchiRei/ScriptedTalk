@@ -18,8 +18,6 @@ namespace ScriptedTalk.TalkSystem.Entity.TalkData
         /// <summary> 選択肢と次にどのTalkGroupにつながるか </summary>
         public List<Selection> Selections { get; private set; }
 
-        private int _readingLine = -1;
-
         public TalkGroup(TalkLine[] talkLines, bool branch, List<Selection> selections)
         {
             TalkLines = talkLines;
@@ -28,22 +26,18 @@ namespace ScriptedTalk.TalkSystem.Entity.TalkData
         }
 
         /// <summary>
-        /// 次の行を取得する。falseを返したときは最後の行に来た時。
+        /// 指定した行を取得する。
         /// </summary>
+        /// <param name="readingLine"></param>
         /// <param name="talkLine"></param>
-        /// <returns></returns>
-        public bool TryGetNextLine(out TalkLine talkLine)
+        /// <returns>最後の行でfalseを返す</returns>
+        public bool TryGetLine(int readingLine, out TalkLine talkLine)
         {
-            _readingLine++;
+            if (readingLine >= TalkLines.Length)
+                throw new ArgumentOutOfRangeException(nameof(readingLine));
 
-            if (_readingLine >= TalkLines.Length)
-            {
-                talkLine = null;
-                return false;
-            }
-
-            talkLine = TalkLines[_readingLine];
-            return _readingLine < TalkLines.Length - 1;
+            talkLine = TalkLines[readingLine];
+            return readingLine < TalkLines.Length - 1;
         }
 
         [Serializable]

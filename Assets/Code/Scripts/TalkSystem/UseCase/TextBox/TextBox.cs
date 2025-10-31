@@ -9,6 +9,11 @@ namespace ScriptedTalk.TalkSystem.UseCase.TextBox
     /// </summary>
     public class TextBox
     {
-        
+        ITalkRepository _talkRepository;
+
+        public TextBox(ITalkRepository talkRepository)
+        {
+            _talkRepository = talkRepository;
+        } 
     }
 }

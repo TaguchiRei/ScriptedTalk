@@ -1,4 +1,5 @@
 using ScriptedTalk.Code.Scripts.TalkSystem.Entity.Event;
+using ScriptedTalk.TalkSystem.Entity.Character;
 
 namespace ScriptedTalk.TalkSystem.UseCase.Character
 {
@@ -7,9 +8,10 @@ namespace ScriptedTalk.TalkSystem.UseCase.Character
     /// </summary>
     public interface ICharacterView
     {
-        public void CharacterShow(int characterId);
-        public void CharacterHide(int characterId);
+        public int MaxCharacters { get; }
+        public void CharacterShow(CharacterData character);
+        public void CharacterHide(CharacterData character);
         public void AllCharacterHide();
-        public void AnimationPlay(EventData eventData);
+        public void AnimationPlay(int animationID, int characterID);
     }
 }

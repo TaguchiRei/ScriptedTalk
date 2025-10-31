@@ -9,12 +9,12 @@ namespace ScriptedTalk.TalkSystem.UseCase.TextBox
     /// <summary>
     /// テキストボックスを管理する
     /// </summary>
-    public class TextBox
+    public class DisplayTextBox
     {
         private readonly ITalkRepository _talkRepository;
         private readonly ITextBoxView _view;
 
-        public TextBox(ITalkRepository talkRepository, ITextBoxView view)
+        public DisplayTextBox(ITalkRepository talkRepository, ITextBoxView view)
         {
             _talkRepository = talkRepository;
             _view = view;

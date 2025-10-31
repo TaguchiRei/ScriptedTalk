@@ -8,5 +8,6 @@ namespace ScriptedTalk.TalkSystem.UseCase.TextBox
     public interface ITalkRepository
     {
         TalkGroup GetTalkGroup(int groupNumber);
+        Context GetContext();
     }
 }

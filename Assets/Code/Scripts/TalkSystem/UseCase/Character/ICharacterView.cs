@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using ScriptedTalk.Code.Scripts.TalkSystem.Entity.Event;
 using ScriptedTalk.TalkSystem.Entity.Character;
 
@@ -11,7 +12,8 @@ namespace ScriptedTalk.TalkSystem.UseCase.Character
         public int MaxCharacters { get; }
         public void CharacterShow(CharacterData character);
         public void CharacterHide(CharacterData character);
+        public void HighLight(List<CharacterData> character);
         public void AllCharacterHide();
-        public void AnimationPlay(int animationID, int characterID);
+        public void AnimationPlay(EventData eventData);
     }
 }

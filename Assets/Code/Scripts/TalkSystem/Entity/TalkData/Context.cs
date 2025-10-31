@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using ScriptedTalk.TalkSystem.Entity.Character;
 
 namespace ScriptedTalk.TalkSystem.Entity.TalkData
 {
     [Serializable]
     public class Context
     {
+        public CharacterData[] FirstCharacters { get; private set; }
         public TalkGroup[] TalkGroups { get; private set; }
 
         public Context(TalkGroup[] talkGroups)
@@ -20,7 +22,7 @@ namespace ScriptedTalk.TalkSystem.Entity.TalkData
         /// <param name="readingLine"></param>
         /// <param name="talkLine"></param>
         /// <returns>falseを返したときはグループの文末</returns>
-        public bool TryGetLine(int readingGroup,int readingLine, out TalkLine talkLine)
+        public bool TryGetLine(int readingGroup, int readingLine, out TalkLine talkLine)
         {
             return TalkGroups[readingGroup].TryGetLine(readingLine, out talkLine);
         }

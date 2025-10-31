@@ -3,6 +3,8 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using NUnit.Framework;
 using ScriptedTalk.Code.Scripts.TalkSystem.Entity.Event;
+using ScriptedTalk.TalkSystem.Entity.Character;
+using UnityEngine;
 
 namespace ScriptedTalk.TalkSystem.UseCase.Character
 {
@@ -17,28 +19,27 @@ namespace ScriptedTalk.TalkSystem.UseCase.Character
             _repository = repository;
         }
 
-        public async UniTask CharacterEvent(CancellationToken cancellationToken)
+        public void StartTalk(CharacterData[] firstCharacters)
         {
-            try
+            foreach (var firstCharacter in firstCharacters)
             {
-                while (true)
-                {
-                    
-                }
+                CharacterShow(firstCharacter);
             }
-            finally
-            {
-                
-            }
-        } 
+        }
+
+        public void EndTalk()
+        {
+            _view.AllCharacterHide();
+        }
 
         /// <summary>
         /// すべてのイベントを実行する
         /// </summary>
         /// <param name="events"></param>
-        private void ExecuteAllEvent(List<EventData> events)
+        public void ExecuteAllEvent(List<EventData> events)
         {
             var exists = _repository.GetExistCharactersID();
+            List<CharacterData> characters = new();
             foreach (var eventData in events)
             {
                 if (eventData.EventID < 0) continue;
@@ -47,9 +48,10 @@ namespace ScriptedTalk.TalkSystem.UseCase.Character
                 {
                     CharacterShow(characterID);
                 }
-
-                _view.AnimationPlay(eventData.CharacterID, eventData.EventID);
+                characters.Add(_repository.GetCharacter(characterID));
+                _view.AnimationPlay(eventData);
             }
+            _view.HighLight(characters);
         }
 
         /// <summary>
@@ -62,11 +64,16 @@ namespace ScriptedTalk.TalkSystem.UseCase.Character
             _view.CharacterShow(showCharacter);
         }
 
+        private void CharacterShow(CharacterData character)
+        {
+            _view.CharacterShow(character);
+        }
+
         /// <summary>
         /// キャラクターを隠す
         /// </summary>
         /// <param name="characterId"></param>
-        private void HideCharacter(int characterId)
+        private void CharacterHide(int characterId)
         {
             var hideCharacter = _repository.GetCharacter(characterId);
             _view.CharacterHide(hideCharacter);

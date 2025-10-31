@@ -16,13 +16,41 @@ namespace ScriptedTalk.TalkSystem.Entity.TalkData
         public bool Branch { get; private set; }
 
         /// <summary> 選択肢と次にどのTalkGroupにつながるか </summary>
-        public Dictionary<string, int> Selections { get; private set; }
+        public List<Selection> Selections { get; private set; }
 
-        public TalkGroup(TalkLine[] talkLines, bool branch, Dictionary<string, int> selections)
+        public TalkGroup(TalkLine[] talkLines, bool branch, List<Selection> selections)
         {
             TalkLines = talkLines;
             Branch = branch;
             Selections = selections;
+        }
+
+        /// <summary>
+        /// 指定した行を取得する。
+        /// </summary>
+        /// <param name="readingLine"></param>
+        /// <param name="talkLine"></param>
+        /// <returns>最後の行でfalseを返す</returns>
+        public bool TryGetLine(int readingLine, out TalkLine talkLine)
+        {
+            if (readingLine >= TalkLines.Length)
+                throw new ArgumentOutOfRangeException(nameof(readingLine));
+
+            talkLine = TalkLines[readingLine];
+            return readingLine < TalkLines.Length - 1;
+        }
+
+        [Serializable]
+        public class Selection
+        {
+            public string SelectionTitle { get; private set; }
+            public int NextGroupID { get; private set; }
+
+            public Selection(string selectionTitle, int nextGroupID)
+            {
+                SelectionTitle = selectionTitle;
+                NextGroupID = nextGroupID;
+            }
         }
     }
 }

@@ -11,6 +11,8 @@ namespace ScriptedTalk.TalkSystem.Entity.TalkData
     {
         public string Text { get; private set; }
         public int[] CharacterID { get; private set; }
+        
+        public int[] TextShowDuration { get; private set; }
 
         public EventData[] EventData { get; private set; }
 

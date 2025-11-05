@@ -14,16 +14,15 @@ public class SceneEnumGenerate
     static SceneEnumGenerate()
     {
         EditorBuildSettings.sceneListChanged += Generate;
-        EditorSceneManager.newSceneCreated += OnNewSceneCreated;
         Generate();
     }
 
-    private static void OnNewSceneCreated(UnityEngine.SceneManagement.Scene scene, UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode)
+    private static void OnNewSceneCreated(UnityEngine.SceneManagement.Scene scene, NewSceneSetup setup, NewSceneMode mode)
     {
         Generate();
     }
 
-    private static void Generate()
+    public static void Generate()
     {
         // BuildSettings に登録されているシーン
         var buildScenes = EditorBuildSettings.scenes;

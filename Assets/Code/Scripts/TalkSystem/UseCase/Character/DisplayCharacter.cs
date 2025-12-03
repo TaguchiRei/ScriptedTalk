@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Numerics;
 using ScriptedTalk.Code.Scripts.TalkSystem.Entity.Event;
 using ScriptedTalk.TalkSystem.Entity.Character;
 
@@ -44,9 +45,11 @@ namespace ScriptedTalk.TalkSystem.UseCase.Character
                 {
                     CharacterShow(characterID);
                 }
+
                 characters.Add(_repository.GetCharacter(characterID));
                 _view.AnimationPlay(eventData);
             }
+
             _view.HighLight(characters);
         }
 
@@ -54,15 +57,15 @@ namespace ScriptedTalk.TalkSystem.UseCase.Character
         /// 新規にキャラクターを表示する
         /// </summary>
         /// <param name="characterId"></param>
-        private void CharacterShow(int characterId)
+        private void CharacterShow(int characterId, Vector3 position)
         {
             var showCharacter = _repository.GetCharacter(characterId);
-            _view.CharacterShow(showCharacter);
+            _view.CharacterShow(showCharacter, position);
         }
 
-        private void CharacterShow(CharacterData character)
+        private void CharacterShow(CharacterData character, Vector3 position)
         {
-            _view.CharacterShow(character);
+            _view.CharacterShow(character, position);
         }
 
         /// <summary>

@@ -8,6 +8,7 @@ namespace ScriptedTalk.Code.Scripts.TalkSystem.Entity.Event
     [Serializable]
     public class EventData
     {
+        public int EventType { get; private set; }
         public int EventID { get; private set; }
         public int CharacterID { get; private set; }
 

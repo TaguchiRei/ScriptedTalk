@@ -16,14 +16,6 @@ namespace ScriptedTalk.TalkSystem.UseCase.Character
             _repository = repository;
         }
 
-        public void StartTalk(CharacterData[] firstCharacters)
-        {
-            foreach (var firstCharacter in firstCharacters)
-            {
-                CharacterShow(firstCharacter);
-            }
-        }
-
         public void EndTalk()
         {
             _view.AllCharacterHide();
@@ -43,7 +35,7 @@ namespace ScriptedTalk.TalkSystem.UseCase.Character
                 var characterID = eventData.CharacterID;
                 if (!exists.Contains(characterID))
                 {
-                    CharacterShow(characterID);
+                    //CharacterShow(characterID);
                 }
 
                 characters.Add(_repository.GetCharacter(characterID));

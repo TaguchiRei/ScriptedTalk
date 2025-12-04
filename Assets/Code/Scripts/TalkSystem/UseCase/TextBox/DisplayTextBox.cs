@@ -25,22 +25,25 @@ namespace ScriptedTalk.TalkSystem.UseCase.TextBox
         /// <param name="groupNumber">会話グループ番号</param>
         /// <param name="lineNumber">行番号</param>
         /// <param name="cancellationToken"></param>
-        public void DisplayLine(int groupNumber, int lineNumber, CancellationToken cancellationToken)
+        /// <returns></returns>
+        public bool DisplayLine(int groupNumber, int lineNumber, CancellationToken cancellationToken)
         {
             var group = _talkRepository.GetTalkGroup(groupNumber);
             var isQuestion = group.TryGetLine(lineNumber, out var line);
             _view.DisplayText(line);
-            
+
             //選択肢がある場合、選択肢を表示する
             if (isQuestion && group.Branch)
             {
                 _view.DisplaySelection(group.Selections);
+                return false;
             }
 
             //表示する文字数をゼロにリセット
             _view.DisplayTextUpdate(0);
 
             LineUpdate(line, cancellationToken).Forget(Debug.LogException);
+            return true;
         }
 
         /// <summary>

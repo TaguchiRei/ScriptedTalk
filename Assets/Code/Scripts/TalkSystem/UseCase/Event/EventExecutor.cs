@@ -10,38 +10,19 @@ public class EventExecutor
 
     public void ExecuteEvent(EventData eventData)
     {
-    }
-
-    private void ShowCharacter(EventData eventData)
-    {
-    }
-
-    private void HideCharacter(EventData eventData)
-    {
-    }
-
-    private void HighlightCharacter(EventData eventData)
-    {
-    }
-
-    private void AnimateCharacter(EventData eventData)
-    {
+        
     }
 
     private void AnimateBackground(EventData eventData)
     {
+    }
+
+    private void PlayEffect(EventData eventData)
+    {
         
     }
-
-    private void MoveCharacter(EventData eventData)
-    {
-    }
-
-    private void PlaySound(EventData eventData)
-    {
-    }
-
     private void ChangeBackGround(EventData eventData)
     {
+        
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using ScriptedTalk.Code.Scripts.TalkSystem.Entity.Event;
 using ScriptedTalk.TalkSystem.Entity.Character;
 using ScriptedTalk.TalkSystem.UseCase.Character;
-using ScriptedTalk.TalkSystem.UseCase.TextBox;
 using UnityEngine;
 using UnityEngine.UI;
 using Vector3 = System.Numerics.Vector3;

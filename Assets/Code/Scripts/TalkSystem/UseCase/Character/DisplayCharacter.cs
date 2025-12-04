@@ -25,7 +25,7 @@ namespace ScriptedTalk.TalkSystem.UseCase.Character
         /// すべてのイベントを実行する
         /// </summary>
         /// <param name="events"></param>
-        public void ExecuteAllEvent(List<EventType> events)
+        public void ExecuteAllEvent(List<EventData> events)
         {
             var exists = _repository.GetExistCharactersID();
             List<CharacterData> characters = new();

@@ -46,12 +46,12 @@ namespace ScriptedTalk
             throw new System.NotImplementedException();
         }
 
-        public void AnimationPlay(EventType eventData)
+        public void AnimationPlay(EventData eventData)
         {
             throw new System.NotImplementedException();
         }
 
-        public void AnimationSkip(EventType eventData)
+        public void AnimationSkip(EventData eventData)
         {
             throw new NotImplementedException();
         }

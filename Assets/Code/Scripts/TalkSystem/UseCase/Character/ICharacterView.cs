@@ -16,8 +16,8 @@ namespace ScriptedTalk.TalkSystem.UseCase.Character
         public void MoveCharacter(CharacterData character, Vector3 position);
         public void HighLight(List<CharacterData> character);
         public void AllCharacterHide();
-        public void AnimationPlay(EventData eventData);
+        public void AnimationPlay(EventType eventData);
 
-        public void AnimationSkip(EventData eventData);
+        public void AnimationSkip(EventType eventData);
     }
 }

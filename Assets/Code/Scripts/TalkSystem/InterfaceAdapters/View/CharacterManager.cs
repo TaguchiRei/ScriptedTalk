@@ -16,12 +16,8 @@ namespace ScriptedTalk
         [SerializeField] private GameObject _characterPrefab;
 
         public int MaxCharacters { get; private set; }
-
-        private void Start()
-        {
-            CharacterShow(new CharacterData("name", Texture2D.blackTexture), Vector3.Zero);
-        }
-
+        
+        
         public void CharacterShow(CharacterData character, Vector3 position)
         {
             var newCharacter = Instantiate(_characterPrefab, _canvas.transform);
@@ -50,12 +46,12 @@ namespace ScriptedTalk
             throw new System.NotImplementedException();
         }
 
-        public void AnimationPlay(EventData eventData)
+        public void AnimationPlay(EventType eventData)
         {
             throw new System.NotImplementedException();
         }
 
-        public void AnimationSkip(EventData eventData)
+        public void AnimationSkip(EventType eventData)
         {
             throw new NotImplementedException();
         }

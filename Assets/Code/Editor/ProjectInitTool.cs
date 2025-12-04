@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProjectInitTool : EditorWindow
 {
-    [MenuItem("Window/UsefulTools/ProjectInitTool")]
+    [MenuItem("UsefulTools/ProjectInitTool")]
     public static void ShowWindow()
     {
         GetWindow<ProjectInitTool>("Project Init Tool");

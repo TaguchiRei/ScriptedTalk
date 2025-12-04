@@ -15,8 +15,18 @@ namespace ScriptedTalk
         [SerializeField] private GameObject _characterPrefab;
 
         public int MaxCharacters { get; private set; }
-        
-        
+
+        private GameObject[] _characters;
+
+        /// <summary>
+        /// 会話の初めにすべてのキャラクターを作成する
+        /// </summary>
+        /// <param name="allCharacters"></param>
+        public void StartTalk(CharacterData[] allCharacters)
+        {
+        }
+
+
         public void CharacterShow(CharacterData character, Vector3 position)
         {
             var newCharacter = Instantiate(_characterPrefab, _canvas.transform);

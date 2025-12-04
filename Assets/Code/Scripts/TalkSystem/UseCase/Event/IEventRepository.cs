@@ -1,15 +1,16 @@
-using System.Numerics;
 using ScriptedTalk.Code.Scripts.TalkSystem.Entity.Event;
-using ScriptedTalk.TalkSystem.Entity.Character;
+using UnityEngine;
 
 namespace ScriptedTalk.TalkSystem.UseCase.Event
 {
     public interface IEventRepository
     {
-        public Vector3 GetCharacterPosition(EventData eventData);
+        public string GetAnimation(int animationID);
 
-        public string GetAnimationClip(EventData eventData);
+        public string GetEffect(int effectID);
 
-        public CharacterData GetCharacter(EventData eventData);
+        public string GetSound(int soundID);
+
+        public string GetBackGround(int backGroundID);
     }
 }

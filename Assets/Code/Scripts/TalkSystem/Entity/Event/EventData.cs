@@ -9,6 +9,9 @@ namespace ScriptedTalk.Code.Scripts.TalkSystem.Entity.Event
     public class EventData
     {
         public EventType EventType { get; private set; }
+        /// <summary>
+        /// EventTypeに対応するイベントのID。背景など画像ならそのID
+        /// </summary>
         public int EventID { get; private set; }
         public int CharacterID { get; private set; }
 

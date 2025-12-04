@@ -7,7 +7,7 @@ namespace ScriptedTalk.TalkSystem.Entity.TalkData
     [Serializable]
     public class Context
     {
-        public CharacterData[] FirstCharacters { get; private set; }
+        public CharacterData[] AllCharacters { get; private set; }
         public TalkGroup[] TalkGroups { get; private set; }
 
         public Context(TalkGroup[] talkGroups)

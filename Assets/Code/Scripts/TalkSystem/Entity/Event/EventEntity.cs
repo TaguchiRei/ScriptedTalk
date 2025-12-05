@@ -6,7 +6,7 @@ namespace ScriptedTalk.Code.Scripts.TalkSystem.Entity.Event
     /// イベントのIDとその対象を保持するクラス
     /// </summary>
     [Serializable]
-    public class EventData
+    public class EventEntity
     {
         public EventType EventType { get; private set; }
         /// <summary>
@@ -15,7 +15,7 @@ namespace ScriptedTalk.Code.Scripts.TalkSystem.Entity.Event
         public int EventID { get; private set; }
         public int CharacterID { get; private set; }
 
-        public EventData(EventType eventType, int eventID, int characterID)
+        public EventEntity(EventType eventType, int eventID, int characterID)
         {
             EventType = eventType;
             EventID = eventID;

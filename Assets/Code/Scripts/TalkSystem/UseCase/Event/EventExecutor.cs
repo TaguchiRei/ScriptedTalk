@@ -6,38 +6,38 @@ using ScriptedTalk.TalkSystem.UseCase.Character;
 /// </summary>
 public class EventExecutor
 {
-    public void ExecuteEvent(EventData eventData)
+    public void ExecuteEvent(EventEntity eventEntity)
     {
-        switch (eventData.EventType)
+        switch (eventEntity.EventType)
         {
             case EventType.AnimateBackground:
-                AnimateBackground(eventData);
+                AnimateBackground(eventEntity);
                 break;
             case EventType.PlaySound:
-                PlaySound(eventData);
+                PlaySound(eventEntity);
                 break;
             case EventType.PlayEffect:
-                PlayEffect(eventData);
+                PlayEffect(eventEntity);
                 break;
             case EventType.ChangeBackground:
-                ChangeBackGround(eventData);
+                ChangeBackGround(eventEntity);
                 break;
         }
     }
 
-    private void AnimateBackground(EventData eventData)
+    private void AnimateBackground(EventEntity eventEntity)
     {
     }
 
-    private void PlaySound(EventData eventData)
+    private void PlaySound(EventEntity eventEntity)
     {
         
     }
-    private void PlayEffect(EventData eventData)
+    private void PlayEffect(EventEntity eventEntity)
     {
     }
 
-    private void ChangeBackGround(EventData eventData)
+    private void ChangeBackGround(EventEntity eventEntity)
     {
     }
 }

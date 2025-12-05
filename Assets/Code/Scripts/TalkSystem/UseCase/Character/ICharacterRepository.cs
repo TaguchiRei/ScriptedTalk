@@ -10,7 +10,7 @@ namespace ScriptedTalk.TalkSystem.UseCase.Character
     /// </summary>
     public interface ICharacterRepository
     {
-        public CharacterData GetCharacter(int characterId);
+        public CharacterEntity GetCharacter(int characterId);
 
         /// <summary> 登場済みのキャラクターのIDリストを取得する </summary>
         public List<int> GetExistCharactersID();
@@ -18,15 +18,15 @@ namespace ScriptedTalk.TalkSystem.UseCase.Character
         /// <summary>
         /// キャラクターの位置を取得する
         /// </summary>
-        /// <param name="eventData"></param>
+        /// <param name="eventEntity"></param>
         /// <returns></returns>
-        public Vector3 GetCharacterPosition(EventData eventData);
+        public Vector3 GetCharacterPosition(EventEntity eventEntity);
         
         /// <summary>
         /// キャラクターのアニメーションを取得する
         /// </summary>
-        /// <param name="eventData"></param>
+        /// <param name="eventEntity"></param>
         /// <returns></returns>
-        public string GetAnimationClip(EventData eventData);
+        public string GetAnimationClip(EventEntity eventEntity);
     }
 }

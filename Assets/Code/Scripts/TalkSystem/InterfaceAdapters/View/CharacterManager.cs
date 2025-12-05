@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using ScriptedTalk.Code.Scripts.TalkSystem.Entity.Event;
 using ScriptedTalk.TalkSystem.Entity.Character;
 using ScriptedTalk.TalkSystem.UseCase.Character;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using Vector3 = System.Numerics.Vector3;
 
@@ -16,53 +18,72 @@ namespace ScriptedTalk
 
         public int MaxCharacters { get; private set; }
 
+        private CharacterImageAsset[] _characterDataCash;
         private GameObject[] _characters;
+
 
         /// <summary>
         /// 会話の初めにすべてのキャラクターを作成する
         /// </summary>
         /// <param name="allCharacters"></param>
-        public void StartTalk(CharacterData[] allCharacters)
+        public async UniTask StartTalk(CharacterEntity[] allCharacters)
         {
+            _characterDataCash = new CharacterImageAsset[allCharacters.Length];
+            for (int i = 0; i < allCharacters.Length; i++)
+            {
+                _characterDataCash[i] =
+                    await Addressables.LoadAssetAsync<CharacterImageAsset>(allCharacters[i].CharacterDataKey);
+            }
         }
 
 
-        public void CharacterShow(CharacterData character, Vector3 position)
+        public void CharacterShow(CharacterEntity character)
         {
-            var newCharacter = Instantiate(_characterPrefab, _canvas.transform);
-            var image = newCharacter.GetComponent<Image>();
-            var rect = newCharacter.GetComponent<RectTransform>();
-            rect.anchoredPosition = new(position.X, position.Y);
+            
         }
 
-        public void CharacterHide(CharacterData character)
+        public void CharacterShow(CharacterEntity character, Vector3 position)
         {
-            throw new System.NotImplementedException();
         }
 
-        public void MoveCharacter(CharacterData character, Vector3 position)
+        public void CharacterHide(CharacterEntity character)
         {
-            throw new System.NotImplementedException();
+            
         }
 
-        public void HighLight(List<CharacterData> character)
+        public void MoveCharacter(CharacterEntity character, Vector3 position)
         {
-            throw new System.NotImplementedException();
+        }
+
+        public void HighLight(List<CharacterEntity> character)
+        {
         }
 
         public void AllCharacterHide()
         {
-            throw new System.NotImplementedException();
         }
 
-        public void AnimationPlay(EventData eventData)
+        public void AnimationPlay(EventEntity eventEntity)
         {
-            throw new System.NotImplementedException();
         }
 
-        public void AnimationSkip(EventData eventData)
+        public void AnimationSkip(EventEntity eventEntity)
         {
-            throw new NotImplementedException();
+        }
+
+        private async UniTask FadeImage(Image image, float start, float end, float duration)
+        {
+            
+        }
+
+        private void CharacterGenerate()
+        {
+            var newCharacter = Instantiate(_characterPrefab, _canvas.transform);
+            var rect = newCharacter.GetComponent<RectTransform>();
+            rect.anchoredPosition = new(0, 0);
+
+            var image = newCharacter.GetComponent<Image>();
+            image.color = new Color(0, 0, 0, 0);
         }
     }
 }

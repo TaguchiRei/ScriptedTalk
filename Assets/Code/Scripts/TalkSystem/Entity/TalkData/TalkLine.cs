@@ -15,9 +15,9 @@ namespace ScriptedTalk.TalkSystem.Entity.TalkData
 
         public int TextShowDuration { get; private set; }
 
-        public EventData[] EventData { get; private set; }
+        public EventEntity[] EventData { get; private set; }
 
-        public TalkLine(string text, int[] characterID, EventData[] eventData)
+        public TalkLine(string text, int[] characterID, EventEntity[] eventData)
         {
             Text = text;
             CharacterID = characterID;

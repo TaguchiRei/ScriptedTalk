@@ -25,10 +25,10 @@ namespace ScriptedTalk.TalkSystem.UseCase.Character
         /// すべてのイベントを実行する
         /// </summary>
         /// <param name="events"></param>
-        public void ExecuteAllEvent(List<EventData> events)
+        public void ExecuteAllEvent(List<EventEntity> events)
         {
             var exists = _repository.GetExistCharactersID();
-            List<CharacterData> characters = new();
+            List<CharacterEntity> characters = new();
             foreach (var eventData in events)
             {
                 if (eventData.EventID < 0) continue;
@@ -55,7 +55,7 @@ namespace ScriptedTalk.TalkSystem.UseCase.Character
             _view.CharacterShow(showCharacter, position);
         }
 
-        private void CharacterShow(CharacterData character, Vector3 position)
+        private void CharacterShow(CharacterEntity character, Vector3 position)
         {
             _view.CharacterShow(character, position);
         }

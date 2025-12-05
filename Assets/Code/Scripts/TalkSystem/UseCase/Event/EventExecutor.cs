@@ -12,7 +12,7 @@ public class EventExecutor
     private IBackGroundView _backGroundView;
     private ISoundSystem _soundSystem;
     private IBGMSystem _bgmSystem;
-    
+
 
     public EventExecutor(IEventRepository eventRepository)
     {
@@ -40,10 +40,12 @@ public class EventExecutor
     private void AnimateBackground(EventEntity eventEntity)
     {
         var anim = _eventRepository.GetAnimation(eventEntity.EventID);
+        _backGroundView.AnimateBackground(anim);
     }
 
     private void PlaySound(EventEntity eventEntity)
     {
+        
     }
 
     private void PlayEffect(EventEntity eventEntity)

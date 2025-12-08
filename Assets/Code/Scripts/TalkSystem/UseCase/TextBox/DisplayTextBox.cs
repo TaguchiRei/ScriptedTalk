@@ -33,7 +33,7 @@ namespace ScriptedTalk.TalkSystem.UseCase.TextBox
             _view.DisplayText(line);
 
             //選択肢がある場合、選択肢を表示する
-            if (isQuestion && group.Branch)
+            if (isQuestion && group.IsBranch())
             {
                 _view.DisplaySelection(group.Selections);
                 return false;

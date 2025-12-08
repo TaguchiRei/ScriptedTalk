@@ -18,7 +18,7 @@ namespace ScriptedTalk
 
         public int MaxCharacters { get; private set; }
 
-        private CharacterImageAsset[] _characterDataCash;
+        private CharacterDataAsset[] _characterDataCash;
         private GameObject[] _characters;
 
 
@@ -28,11 +28,11 @@ namespace ScriptedTalk
         /// <param name="allCharacters"></param>
         public async UniTask StartTalk(CharacterEntity[] allCharacters)
         {
-            _characterDataCash = new CharacterImageAsset[allCharacters.Length];
+            _characterDataCash = new CharacterDataAsset[allCharacters.Length];
             for (int i = 0; i < allCharacters.Length; i++)
             {
                 _characterDataCash[i] =
-                    await Addressables.LoadAssetAsync<CharacterImageAsset>(allCharacters[i].CharacterDataKey);
+                    await Addressables.LoadAssetAsync<CharacterDataAsset>(allCharacters[i].CharacterDataKey);
             }
         }
 

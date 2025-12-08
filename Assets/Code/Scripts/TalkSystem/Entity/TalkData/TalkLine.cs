@@ -11,16 +11,16 @@ namespace ScriptedTalk.TalkSystem.Entity.TalkData
     public class TalkLine
     {
         public string Text { get; private set; }
-        public int[] CharacterID { get; private set; }
+        public int[] HighLightCharacterID { get; private set; }
 
         public int TextShowDuration { get; private set; }
 
         public EventEntity[] EventData { get; private set; }
 
-        public TalkLine(string text, int[] characterID, EventEntity[] eventData)
+        public TalkLine(string text, int[] highLightCharacterID, EventEntity[] eventData)
         {
             Text = text;
-            CharacterID = characterID;
+            HighLightCharacterID = highLightCharacterID;
             EventData = eventData;
         }
     }

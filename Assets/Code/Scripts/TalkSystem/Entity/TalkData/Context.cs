@@ -35,7 +35,7 @@ namespace ScriptedTalk.TalkSystem.Entity.TalkData
         /// <returns>trueなら質問、falseを返したときは文末</returns>
         public bool TryGetQuestion(int readingGroup, out List<TalkGroup.Selection> selection)
         {
-            if (TalkGroups[readingGroup].Branch)
+            if (TalkGroups[readingGroup].IsBranch())
             {
                 selection = TalkGroups[readingGroup].Selections;
                 return true;
@@ -56,7 +56,7 @@ namespace ScriptedTalk.TalkSystem.Entity.TalkData
         {
             var group = TalkGroups[readingGroup];
 
-            if (group.Branch)
+            if (group.IsBranch())
             {
                 var index = group.Selections.FindIndex(s => s.SelectionTitle == selection);
 

@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using ScriptedTalk.TalkSystem.Entity.TalkData;
@@ -50,6 +51,7 @@ namespace ScriptedTalk.TalkSystem.UseCase.TextBox
         /// 表示文字数の更新を行う
         /// </summary>
         /// <returns></returns>
+        [Obsolete("viewに移動予定のコードです")]
         private async UniTask LineUpdate(TalkLine line, CancellationToken cancellationToken)
         {
             var showNum = 0;

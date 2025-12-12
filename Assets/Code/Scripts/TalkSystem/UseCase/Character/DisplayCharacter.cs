@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Numerics;
-using ScriptedTalk.Code.Scripts.TalkSystem.Entity.Event;
 using ScriptedTalk.TalkSystem.Entity.Character;
 
 namespace ScriptedTalk.TalkSystem.UseCase.Character
@@ -19,30 +18,6 @@ namespace ScriptedTalk.TalkSystem.UseCase.Character
         public void EndTalk()
         {
             _view.AllCharacterHide();
-        }
-
-        /// <summary>
-        /// すべてのイベントを実行する
-        /// </summary>
-        /// <param name="events"></param>
-        public void ExecuteAllEvent(List<EventEntity> events)
-        {
-            var exists = _repository.GetExistCharactersID();
-            List<CharacterEntity> characters = new();
-            foreach (var eventData in events)
-            {
-                if (eventData.EventID < 0) continue;
-                var characterID = eventData.CharacterID;
-                if (!exists.Contains(characterID))
-                {
-                    //CharacterShow(characterID);
-                }
-
-                characters.Add(_repository.GetCharacter(characterID));
-                _view.AnimationPlay(eventData);
-            }
-
-            _view.HighLight(characters);
         }
 
         /// <summary>

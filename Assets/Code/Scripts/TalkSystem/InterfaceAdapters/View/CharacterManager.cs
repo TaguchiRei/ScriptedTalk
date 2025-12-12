@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using ScriptedTalk.Code.Scripts.TalkSystem.Entity.Event;
 using ScriptedTalk.TalkSystem.Entity.Character;
 using ScriptedTalk.TalkSystem.UseCase.Character;
 using UnityEngine;
@@ -60,14 +59,6 @@ namespace ScriptedTalk
         }
 
         public void AllCharacterHide()
-        {
-        }
-
-        public void AnimationPlay(EventEntity eventEntity)
-        {
-        }
-
-        public void AnimationSkip(EventEntity eventEntity)
         {
         }
 

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Numerics;
-using ScriptedTalk.Code.Scripts.TalkSystem.Entity.Event;
 using ScriptedTalk.TalkSystem.Entity.Character;
 
 namespace ScriptedTalk.TalkSystem.UseCase.Character
@@ -16,8 +15,8 @@ namespace ScriptedTalk.TalkSystem.UseCase.Character
         public void MoveCharacter(CharacterEntity character, Vector3 position);
         public void HighLight(List<CharacterEntity> character);
         public void AllCharacterHide();
-        public void AnimationPlay(EventEntity eventEntity);
+        //public void AnimationPlay(EventEntity eventEntity);
 
-        public void AnimationSkip(EventEntity eventEntity);
+        //public void AnimationSkip(EventEntity eventEntity);
     }
 }

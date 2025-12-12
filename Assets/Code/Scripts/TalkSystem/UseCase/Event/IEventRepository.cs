@@ -1,6 +1,3 @@
-using ScriptedTalk.Code.Scripts.TalkSystem.Entity.Event;
-using UnityEngine;
-
 namespace ScriptedTalk.TalkSystem.UseCase.Event
 {
     public interface IEventRepository

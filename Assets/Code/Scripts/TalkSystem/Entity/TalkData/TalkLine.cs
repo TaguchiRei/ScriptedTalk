@@ -1,6 +1,4 @@
 using System;
-using System.Numerics;
-using ScriptedTalk.Code.Scripts.TalkSystem.Entity.Event;
 
 namespace ScriptedTalk.TalkSystem.Entity.TalkData
 {
@@ -11,17 +9,17 @@ namespace ScriptedTalk.TalkSystem.Entity.TalkData
     public class TalkLine
     {
         public string Text { get; private set; }
-        public int[] CharacterID { get; private set; }
+        public int[] HighLightCharacterID { get; private set; }
 
         public int TextShowDuration { get; private set; }
 
-        public EventData[] EventData { get; private set; }
+        public IEvent[] Events { get; private set; }
 
-        public TalkLine(string text, int[] characterID, EventData[] eventData)
+        public TalkLine(string text, int[] highLightCharacterID, IEvent[] events)
         {
             Text = text;
-            CharacterID = characterID;
-            EventData = eventData;
+            HighLightCharacterID = highLightCharacterID;
+            Events = events;
         }
     }
 }

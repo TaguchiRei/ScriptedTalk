@@ -2,16 +2,16 @@ using UnityEngine;
 
 namespace ScriptedTalk.TalkSystem.Entity.Character
 {
-    public class CharacterData
+    public class CharacterEntity
     {
         public string Name { get; private set; }
         public int ID { get; private set; }
-        public Texture2D CharacterVisual { get; private set; }
+        public string CharacterDataKey { get; private set; }
 
-        public CharacterData(string name, Texture2D characterVisual)
+        public CharacterEntity(string name, string characterDataKey)
         {
             Name = name;
-            CharacterVisual = characterVisual;
+            CharacterDataKey = characterDataKey;
         }
     }
 }

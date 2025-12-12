@@ -1,10 +1,13 @@
 using UnityEditor;
 using UnityEditor.PackageManager;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
 public class ProjectInitTool : EditorWindow
 {
-    [MenuItem("UsefulTools/ProjectInitTool")]
+    private static AddRequest request;
+
+    [MenuItem("Window/UsefulTools/ProjectInitTool")]
     public static void ShowWindow()
     {
         GetWindow<ProjectInitTool>("Project Init Tool");
@@ -14,7 +17,17 @@ public class ProjectInitTool : EditorWindow
     {
         if (GUILayout.Button("UniTaskを導入"))
         {
-            InstallUniTask();
+            InstallURL("https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask");
+        }
+
+        if (GUILayout.Button("VContainerを導入"))
+        {
+            InstallURL("https://github.com/hadashiA/VContainer.git");
+        }
+
+        if (GUILayout.Button("Addressableを導入"))
+        {
+            InstallPackageManager("com.unity.addressables");
         }
 
         if (GUILayout.Button("ディレクトリ整理"))
@@ -47,9 +60,9 @@ public class ProjectInitTool : EditorWindow
         CreateFolderUnderAssets("Assets", "LocalAssets");
     }
 
-    private static void CreateFolderUnderAssets(string folderPath,string folderName)
+    private static void CreateFolderUnderAssets(string folderPath, string folderName)
     {
-        if (!AssetDatabase.IsValidFolder(folderPath + "/" +  folderName))
+        if (!AssetDatabase.IsValidFolder(folderPath + "/" + folderName))
         {
             AssetDatabase.CreateFolder(folderPath, folderName);
             Debug.Log($"フォルダを作成しました: {folderPath}/{folderName}");
@@ -59,16 +72,20 @@ public class ProjectInitTool : EditorWindow
             Debug.LogWarning($"すでに存在しています: {folderPath}/{folderName}");
         }
     }
+
     #endregion
-    
+
     #region Asset導入
 
-    private void InstallUniTask()
+    private void InstallURL(string url)
     {
-        string packageUrl = "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask";
-        var request = Client.Add(packageUrl);
+        var request = Client.Add(url);
     }
-    
+
+    private void InstallPackageManager(string packageName)
+    {
+        request = Client.Add(packageName);
+    }
 
     #endregion
 }

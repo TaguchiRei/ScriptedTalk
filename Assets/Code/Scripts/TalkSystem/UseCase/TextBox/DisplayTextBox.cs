@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using ScriptedTalk.TalkSystem.Entity.TalkData;
@@ -33,7 +34,7 @@ namespace ScriptedTalk.TalkSystem.UseCase.TextBox
             _view.DisplayText(line);
 
             //選択肢がある場合、選択肢を表示する
-            if (isQuestion && group.Branch)
+            if (isQuestion && group.IsBranch())
             {
                 _view.DisplaySelection(group.Selections);
                 return false;
@@ -50,6 +51,7 @@ namespace ScriptedTalk.TalkSystem.UseCase.TextBox
         /// 表示文字数の更新を行う
         /// </summary>
         /// <returns></returns>
+        [Obsolete("viewに移動予定のコードです")]
         private async UniTask LineUpdate(TalkLine line, CancellationToken cancellationToken)
         {
             var showNum = 0;

@@ -12,12 +12,12 @@ namespace ScriptedTalk.TalkSystem.UseCase.TextBox
     public class DisplayTextBox
     {
         private readonly ITalkRepository _talkRepository;
-        private readonly ITextBoxView _view;
+        private readonly ITextBoxPresenter _presenter;
 
-        public DisplayTextBox(ITalkRepository talkRepository, ITextBoxView view)
+        public DisplayTextBox(ITalkRepository talkRepository, ITextBoxPresenter presenter)
         {
             _talkRepository = talkRepository;
-            _view = view;
+            _presenter = presenter;
         }
 
         /// <summary>
@@ -31,44 +31,16 @@ namespace ScriptedTalk.TalkSystem.UseCase.TextBox
         {
             var group = _talkRepository.GetTalkGroup(groupNumber);
             var isQuestion = group.TryGetLine(lineNumber, out var line);
-            _view.DisplayText(line);
+            _presenter.DisplayText(line);
 
             //選択肢がある場合、選択肢を表示する
             if (isQuestion && group.IsBranch())
             {
-                _view.DisplaySelection(group.Selections);
+                _presenter.DisplaySelection(group.Selections);
                 return false;
             }
 
-            //表示する文字数をゼロにリセット
-            _view.DisplayTextUpdate(0);
-
-            LineUpdate(line, cancellationToken).Forget(Debug.LogException);
             return true;
-        }
-
-        /// <summary>
-        /// 表示文字数の更新を行う
-        /// </summary>
-        /// <returns></returns>
-        [Obsolete("viewに移動予定のコードです")]
-        private async UniTask LineUpdate(TalkLine line, CancellationToken cancellationToken)
-        {
-            var showNum = 0;
-            var maxLineNum = line.Text.Length;
-            try
-            {
-                while (showNum < maxLineNum)
-                {
-                    await UniTask.Delay(line.TextShowDuration, cancellationToken: cancellationToken);
-                    showNum++;
-                    _view.DisplayTextUpdate(showNum);
-                }
-            }
-            finally
-            {
-                _view.DisplayTextUpdate(maxLineNum);
-            }
         }
     }
 }

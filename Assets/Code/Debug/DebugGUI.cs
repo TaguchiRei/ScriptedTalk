@@ -31,7 +31,7 @@ public class DebugGUI : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    
     private void OnDestroy()
     {
         _instance = null;

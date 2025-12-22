@@ -38,13 +38,13 @@ public class ServiceLocator : MonoBehaviour
             return false;
         }
 
-        if (_systemServices.ContainsKey(instance.GetType()))
+        if (_systemServices.ContainsKey(typeof(T)))
         {
             Debug.Log("SystemService already registered");
             return false;
         }
 
-        _systemServices.Add(instance.GetType(), instance);
+        _systemServices.Add(typeof(T), instance);
         return true;
     }
 

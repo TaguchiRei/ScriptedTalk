@@ -38,6 +38,9 @@ public class CodeGenerator : EditorWindow
     {
         _generateCodeFunc = GetSimpleCsCode;
         _generateMode = GenerateMode.SimpleCs;
+        _showOptions = true;
+        _showSimpleClass = true;
+        _showOthers = true;
     }
 
     public void OnGUI()

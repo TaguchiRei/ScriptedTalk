@@ -4,4 +4,6 @@
 public interface IEvent
 {
     public void Execute();
+
+    public void Skip();
 }

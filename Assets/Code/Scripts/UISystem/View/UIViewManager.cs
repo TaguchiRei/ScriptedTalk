@@ -2,18 +2,11 @@ using UnityEngine;
 
 namespace ScriptedTalk
 {
+    /// <summary>
+    /// UIの表示、非表示、優先度を管理する。
+    /// </summary>
     public class UIViewManager : MonoBehaviour
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
         
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
     }
 }

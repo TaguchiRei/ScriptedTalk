@@ -14,15 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ContextData
   context:
   - talkLines:
-    - Text: dwagwg
+    - Text: 
       HighLightCharacterID: 0
       TextShowDuration: 0
       Events: []
-    selections: []
-  - talkLines: []
-    selections: []
-  - talkLines:
-    - Text: dafgwg
+    - Text: 
       HighLightCharacterID: 0
       TextShowDuration: 0
       Events: []

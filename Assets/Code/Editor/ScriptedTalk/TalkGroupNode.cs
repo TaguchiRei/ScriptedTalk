@@ -21,96 +21,94 @@ public class TalkGroupNode : Node
 
         title = $"Talk Group {_groupIndex}";
 
-        // SerializedObject を ContextData で作る（重要）
         _serializedContext = new SerializedObject(_contextData);
 
-        // context[groupIndex].talkLines を取得
         SerializedProperty contextList =
-            _serializedContext.FindProperty("context");
+            _serializedContext.FindProperty("Context");
 
         SerializedProperty groupProperty =
             contextList.GetArrayElementAtIndex(_groupIndex);
 
         _talkLinesProperty =
-            groupProperty.FindPropertyRelative("talkLines");
+            groupProperty.FindPropertyRelative("TalkLines");
 
-        // UI 構築
         _talkLineContainer = new VisualElement();
         _talkLineContainer.style.flexDirection = FlexDirection.Column;
         _talkLineContainer.style.marginTop = 4;
 
         extensionContainer.Add(_talkLineContainer);
-        RefreshExpandedState();
 
+        // ★ 先にUIを構築
         DrawTalkLines();
+        //DrawTalkGroup();
+
+        // ★ 最後に必ず呼ぶ
+        RefreshExpandedState();
+        style.minWidth = 500;
+        style.minHeight = 180;
     }
 
     private void DrawTalkLines()
     {
         _talkLineContainer.Clear();
-
         _serializedContext.Update();
 
         for (int i = 0; i < _talkLinesProperty.arraySize; i++)
         {
-            int index = i;
+            SerializedProperty element =
+                _talkLinesProperty.GetArrayElementAtIndex(i);
 
-            SerializedProperty lineProperty =
-                _talkLinesProperty.GetArrayElementAtIndex(index);
+            VisualElement talkLineElement =
+                CreateTalkLineElement(element);
 
-            SerializedProperty textProperty =
-                lineProperty.FindPropertyRelative("Text");
-
-            VisualElement row = new VisualElement();
-            row.style.flexDirection = FlexDirection.Row;
-            row.style.marginBottom = 2;
-
-            TextField textField = new TextField();
-            textField.style.flexGrow = 1;
-
-            // Inspector と同じバインディング
-            textField.BindProperty(textProperty);
-
-            Button removeButton = new Button(() =>
-            {
-                _serializedContext.Update();
-                _talkLinesProperty.DeleteArrayElementAtIndex(index);
-                _serializedContext.ApplyModifiedProperties();
-                DrawTalkLines();
-            })
-            {
-                text = "-"
-            };
-
-            row.Add(textField);
-            row.Add(removeButton);
-            _talkLineContainer.Add(row);
+            _talkLineContainer.Add(talkLineElement);
         }
-
-        Button addButton = new Button(() =>
-        {
-            _serializedContext.Update();
-
-            int newIndex = _talkLinesProperty.arraySize;
-            _talkLinesProperty.InsertArrayElementAtIndex(newIndex);
-
-            SerializedProperty newLine =
-                _talkLinesProperty.GetArrayElementAtIndex(newIndex);
-
-            newLine.FindPropertyRelative("Text").stringValue = string.Empty;
-            newLine.FindPropertyRelative("HighLightCharacterID").intValue = 0;
-            newLine.FindPropertyRelative("TextShowDuration").intValue = 0;
-
-            _serializedContext.ApplyModifiedProperties();
-            DrawTalkLines();
-        })
-        {
-            text = "Add Talk Line"
-        };
-
-        addButton.style.marginTop = 4;
-        _talkLineContainer.Add(addButton);
     }
+
+
+    private void DrawTalkGroup()
+    {
+        _talkLineContainer.Clear();
+
+        _serializedContext.Update();
+
+
+        SerializedProperty selectionProp =
+            _serializedContext.FindProperty("Selections");
+
+        PropertyField selectionField =
+            new PropertyField(selectionProp);
+
+        selectionField.Bind(_serializedContext);
+        _talkLineContainer.Add(selectionField);
+    }
+
+    private VisualElement CreateTalkLineElement(SerializedProperty talkLineProp)
+    {
+        VisualElement root = new VisualElement();
+        root.style.flexDirection = FlexDirection.Column;
+        root.style.marginBottom = 6;
+
+        SerializedProperty textProp =
+            talkLineProp.FindPropertyRelative("Text");
+
+        SerializedProperty highlightIdProp =
+            talkLineProp.FindPropertyRelative("HighgLightCharactorId");
+
+        SerializedProperty durationProp =
+            talkLineProp.FindPropertyRelative("TextShowDuration");
+
+        SerializedProperty eventsProp =
+            talkLineProp.FindPropertyRelative("Events");
+
+        root.Add(new PropertyField(textProp));
+        root.Add(new PropertyField(highlightIdProp));
+        root.Add(new PropertyField(durationProp));
+        root.Add(new PropertyField(eventsProp));
+
+        return root;
+    }
+
 
     protected void GeneratePorts(
         int count,

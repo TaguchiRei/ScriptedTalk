@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d316097b97394494bbf9efaa55ab49d7, type: 3}
   m_Name: TestContextData
   m_EditorClassIdentifier: Assembly-CSharp::ContextData
-  context:
-  - talkLines:
+  Context:
+  - TalkLines:
     - Text: 
       HighLightCharacterID: 0
       TextShowDuration: 0
@@ -22,7 +22,7 @@ MonoBehaviour:
       HighLightCharacterID: 0
       TextShowDuration: 0
       Events: []
-    selections: []
+    Selections: []
   references:
     version: 2
     RefIds: []

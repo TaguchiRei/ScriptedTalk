@@ -25,9 +25,9 @@ public class ContextNodeEditGraphView : GraphView
         nodeCreationRequest += context =>
         {
             var newGroupData = new TalkGroupData();
-            contextData.context.Add(newGroupData);
+            contextData.Context.Add(newGroupData);
             // 後述するNodeというクラスのインスタンス生成
-            var node = new TalkGroupNode(contextData, contextData.context.Count - 1);
+            var node = new TalkGroupNode(contextData, contextData.Context.Count - 1);
             // GraphViewの子要素として追加する
             AddElement(node);
         };

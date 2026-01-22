@@ -5,15 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ContextData", menuName = "ScriptableObjects/ContextData")]
 public class ContextData : ScriptableObject
 {
-    public List<TalkGroupData> context;
+    public List<TalkGroupData> Context;
 }
 
 [Serializable]
 public class TalkGroupData
 {
-    public TalkLineData[] talkLines;
+    public TalkLineData[] TalkLines;
 
-    public List<SelectionData> selections;
+    public List<SelectionData> Selections;
 }
 
 [Serializable]

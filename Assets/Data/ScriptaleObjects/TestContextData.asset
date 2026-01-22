@@ -13,40 +13,16 @@ MonoBehaviour:
   m_Name: TestContextData
   m_EditorClassIdentifier: Assembly-CSharp::ContextData
   Context:
-  - TalkLines:
-    - Text: 
-      HighLightCharacterID: 0
-      TextShowDuration: 0
-      Events:
-      - rid: -2
+  - TalkLines: []
     Selections: []
   - TalkLines:
     - Text: 
       HighLightCharacterID: 0
       TextShowDuration: 0
       Events: []
-    - Text: 
-      HighLightCharacterID: 0
-      TextShowDuration: 0
-      Events: []
-    Selections: []
-  - TalkLines:
-    - Text: 
-      HighLightCharacterID: 0
-      TextShowDuration: 0
-      Events:
-      - rid: -2
-    - Text: 
-      HighLightCharacterID: 0
-      TextShowDuration: 0
-      Events: []
-    Selections: []
-  - TalkLines:
-    - Text: 
-      HighLightCharacterID: 0
-      TextShowDuration: 0
-      Events: []
-    Selections: []
+    Selections:
+    - SelectionTitle: 
+      NextGroupID: 0
   - TalkLines:
     - Text: 
       HighLightCharacterID: 0
@@ -58,10 +34,6 @@ MonoBehaviour:
       Events: []
     Selections: []
   - TalkLines:
-    - Text: 
-      HighLightCharacterID: 0
-      TextShowDuration: 0
-      Events: []
     - Text: 
       HighLightCharacterID: 0
       TextShowDuration: 0
@@ -69,6 +41,4 @@ MonoBehaviour:
     Selections: []
   references:
     version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    RefIds: []

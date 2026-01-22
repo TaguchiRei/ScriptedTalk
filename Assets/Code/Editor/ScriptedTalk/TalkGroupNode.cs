@@ -6,6 +6,9 @@ using UnityEngine.UIElements;
 
 public class TalkGroupNode : Node
 {
+    public TalkLineData TalkLine;
+    
+    
     private readonly ContextData _contextData;
     private readonly int _groupIndex;
 

@@ -17,6 +17,50 @@ MonoBehaviour:
     - Text: 
       HighLightCharacterID: 0
       TextShowDuration: 0
+      Events:
+      - rid: -2
+    Selections: []
+  - TalkLines:
+    - Text: 
+      HighLightCharacterID: 0
+      TextShowDuration: 0
+      Events: []
+    - Text: 
+      HighLightCharacterID: 0
+      TextShowDuration: 0
+      Events: []
+    Selections: []
+  - TalkLines:
+    - Text: 
+      HighLightCharacterID: 0
+      TextShowDuration: 0
+      Events:
+      - rid: -2
+    - Text: 
+      HighLightCharacterID: 0
+      TextShowDuration: 0
+      Events: []
+    Selections: []
+  - TalkLines:
+    - Text: 
+      HighLightCharacterID: 0
+      TextShowDuration: 0
+      Events: []
+    Selections: []
+  - TalkLines:
+    - Text: 
+      HighLightCharacterID: 0
+      TextShowDuration: 0
+      Events: []
+    - Text: 
+      HighLightCharacterID: 0
+      TextShowDuration: 0
+      Events: []
+    Selections: []
+  - TalkLines:
+    - Text: 
+      HighLightCharacterID: 0
+      TextShowDuration: 0
       Events: []
     - Text: 
       HighLightCharacterID: 0
@@ -25,4 +69,6 @@ MonoBehaviour:
     Selections: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

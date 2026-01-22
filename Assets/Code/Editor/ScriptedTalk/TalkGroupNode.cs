@@ -39,8 +39,7 @@ public class TalkGroupNode : Node
         extensionContainer.Add(_talkLineContainer);
 
         // ★ 先にUIを構築
-        DrawTalkLines();
-        //DrawTalkGroup();
+        DrawTalkGroupLikeInspector();
 
         // ★ 最後に必ず呼ぶ
         RefreshExpandedState();
@@ -48,30 +47,24 @@ public class TalkGroupNode : Node
         style.minHeight = 180;
     }
 
-    private void DrawTalkLines()
-    {
-        _talkLineContainer.Clear();
-        _serializedContext.Update();
-
-        for (int i = 0; i < _talkLinesProperty.arraySize; i++)
-        {
-            SerializedProperty element =
-                _talkLinesProperty.GetArrayElementAtIndex(i);
-
-            VisualElement talkLineElement =
-                CreateTalkLineElement(element);
-
-            _talkLineContainer.Add(talkLineElement);
-        }
-    }
-
-
     private void DrawTalkGroup()
     {
         _talkLineContainer.Clear();
 
         _serializedContext.Update();
+    }
 
+    private void DrawTalkGroupLikeInspector()
+    {
+        _talkLineContainer.Clear();
+
+        _serializedContext.Update();
+
+        PropertyField talkLinesField =
+            new PropertyField(_talkLinesProperty);
+
+        talkLinesField.Bind(_serializedContext);
+        _talkLineContainer.Add(talkLinesField);
 
         SerializedProperty selectionProp =
             _serializedContext.FindProperty("Selections");
@@ -83,40 +76,9 @@ public class TalkGroupNode : Node
         _talkLineContainer.Add(selectionField);
     }
 
-    private VisualElement CreateTalkLineElement(SerializedProperty talkLineProp)
-    {
-        VisualElement root = new VisualElement();
-        root.style.flexDirection = FlexDirection.Column;
-        root.style.marginBottom = 6;
-
-        SerializedProperty textProp =
-            talkLineProp.FindPropertyRelative("Text");
-
-        SerializedProperty highlightIdProp =
-            talkLineProp.FindPropertyRelative("HighgLightCharactorId");
-
-        SerializedProperty durationProp =
-            talkLineProp.FindPropertyRelative("TextShowDuration");
-
-        SerializedProperty eventsProp =
-            talkLineProp.FindPropertyRelative("Events");
-
-        root.Add(new PropertyField(textProp));
-        root.Add(new PropertyField(highlightIdProp));
-        root.Add(new PropertyField(durationProp));
-        root.Add(new PropertyField(eventsProp));
-
-        return root;
-    }
-
 
     protected void GeneratePorts(
-        int count,
-        Direction direction,
-        Port.Capacity capacity,
-        Type portType,
-        string portNamePrefix
-    )
+        int count, Direction direction, Port.Capacity capacity, Type portType, string portNamePrefix)
     {
         VisualElement container =
             direction == Direction.Input ? inputContainer : outputContainer;

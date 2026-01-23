@@ -11,9 +11,14 @@ public class ContextData : ScriptableObject
 [Serializable]
 public class TalkGroupData
 {
+    public string Guid = System.Guid.NewGuid().ToString();
     public TalkLineData[] TalkLines;
 
     public List<SelectionData> Selections;
+
+#if UNITY_EDITOR
+    public Vector2 Position;
+#endif
 }
 
 [Serializable]
@@ -29,5 +34,5 @@ public class TalkLineData
 public class SelectionData
 {
     public string SelectionTitle;
-    public int NextGroupID;
+    public string NextGroupGuid;
 }

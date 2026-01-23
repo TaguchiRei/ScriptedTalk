@@ -23,45 +23,18 @@ public class TalkLineDataDrawer : PropertyDrawer
         EditorGUI.indentLevel = 0;
 
         // ===== 1行目：Text（可変） + int（40px固定） =====
-        float textWidth =
-            position.width
-            - IntFieldWidth * 2;
-
-        Rect textRect = new Rect(
-            position.x,
-            position.y,
-            textWidth,
-            lineHeight
-        );
-
-        Rect highlightRect = new Rect(
-            textRect.xMax,
-            position.y,
-            IntFieldWidth,
-            lineHeight
-        );
-
-        Rect durationRect = new Rect(
-            highlightRect.xMax,
-            position.y,
-            IntFieldWidth,
-            lineHeight
-        );
+        float textWidth = position.width - IntFieldWidth * 2;
+        Rect textRect = new Rect(position.x, position.y, textWidth, lineHeight);
+        Rect highlightRect = new Rect(textRect.xMax, position.y, IntFieldWidth, lineHeight);
+        Rect durationRect = new Rect(highlightRect.xMax, position.y, IntFieldWidth, lineHeight);
 
         EditorGUI.PropertyField(textRect, textProp, GUIContent.none);
         EditorGUI.PropertyField(highlightRect, highlightIdProp, GUIContent.none);
         EditorGUI.PropertyField(durationRect, durationProp, GUIContent.none);
 
-        // ===== 2行目：Events（左に10pxスペース） =====
+        // ===== 2行目：Events（左に少しスペース） =====
         float eventsHeight = EditorGUI.GetPropertyHeight(eventsProp, true);
-
-        Rect eventsRect = new Rect(
-            position.x + EventsLeftPadding,
-            position.y + lineHeight + spacing,
-            position.width - EventsLeftPadding,
-            eventsHeight
-        );
-
+        Rect eventsRect = new Rect(position.x + EventsLeftPadding, position.y + lineHeight + spacing, position.width - EventsLeftPadding, eventsHeight);
         EditorGUI.PropertyField(eventsRect, eventsProp, true);
 
         EditorGUI.indentLevel = oldIndent;
@@ -71,7 +44,6 @@ public class TalkLineDataDrawer : PropertyDrawer
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
         var eventsProp = property.FindPropertyRelative("Events");
-
         float lineHeight = EditorGUIUtility.singleLineHeight;
         float spacing = EditorGUIUtility.standardVerticalSpacing;
         float eventsHeight = EditorGUI.GetPropertyHeight(eventsProp, true);

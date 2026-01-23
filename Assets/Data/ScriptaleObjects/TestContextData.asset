@@ -26,7 +26,7 @@ MonoBehaviour:
       NextGroupGuid: 4a3c1c6c-3be5-4f21-a36e-519f2182db33
     - SelectionTitle: "\u3088\u304F\u805E\u3053\u3048\u306A\u304B\u3063\u305F"
       NextGroupGuid: 7483ff93-3fda-4458-a50e-1831136ec18c
-    Position: {x: 82, y: 104}
+    Position: {x: -555.81525, y: 173}
   - Guid: 6e4e9f7d-e1ce-4334-bf30-6d26598f4626
     TalkLines:
     - Text: "\u5143\u6C17\u3067\u3059\u304B\uFF1F"
@@ -34,7 +34,7 @@ MonoBehaviour:
       TextShowDuration: 0
       Events: []
     Selections: []
-    Position: {x: 0, y: 0}
+    Position: {x: -0.000032424927, y: 173.00002}
   - Guid: 4a3c1c6c-3be5-4f21-a36e-519f2182db33
     TalkLines:
     - Text: "\u3055\u3088\u3046\u306A\u3089"
@@ -42,7 +42,7 @@ MonoBehaviour:
       TextShowDuration: 0
       Events: []
     Selections: []
-    Position: {x: 700.9999, y: 362.99994}
+    Position: {x: -0.000032424927, y: 367.49994}
   references:
     version: 2
     RefIds: []

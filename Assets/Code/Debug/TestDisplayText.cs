@@ -23,7 +23,7 @@ namespace ScriptedTalk
                 dispatcher.RegisterActionCancelled(nameof(ActionMaps.Player), nameof(PlayerActions.Attack),
                     _ => _textView.SkipAnimation());
 
-                Debug.Log("getDispatcher");
+                Debug.Log("Get Dispatcher");
             }
             else
             {

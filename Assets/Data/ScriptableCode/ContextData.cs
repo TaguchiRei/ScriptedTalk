@@ -17,6 +17,7 @@ public class TalkGroupData
     public List<SelectionData> Selections;
 
 #if UNITY_EDITOR
+    /// <summary> エディタ専用　触るな </summary>
     public Vector2 Position;
 #endif
 }

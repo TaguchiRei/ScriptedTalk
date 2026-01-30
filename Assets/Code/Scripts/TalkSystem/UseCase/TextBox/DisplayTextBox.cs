@@ -1,8 +1,4 @@
-using System;
 using System.Threading;
-using Cysharp.Threading.Tasks;
-using ScriptedTalk.TalkSystem.Entity.TalkData;
-using UnityEngine;
 
 namespace ScriptedTalk.TalkSystem.UseCase.TextBox
 {

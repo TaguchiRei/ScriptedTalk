@@ -7,6 +7,7 @@ public enum InListSceneName
 
 public enum OutListSceneName
 {
+    New_Scene,
     InGame,
     OutSceneTest,
     Test,

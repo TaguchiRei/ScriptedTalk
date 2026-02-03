@@ -16,6 +16,11 @@ namespace ScriptedTalk.TalkSystem.UseCase.TextBox
             _presenter = presenter;
         }
 
+        public bool OnInputNextButton(int groupNumber, int lineNumber, CancellationToken cancellationToken)
+        {
+            return false;
+        }
+
         /// <summary>
         /// 指定された行のテキストの表示を指示し、選択肢があるかどうかを調べる
         /// </summary>

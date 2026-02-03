@@ -20,6 +20,7 @@ namespace ScriptedTalk
         [SerializeField] private GameObject _textPanel;
 
         private UniTask _talkTask;
+        private CancellationTokenSource _cts;
 
         public void StartTalking(string assetPath)
         {
@@ -37,6 +38,7 @@ namespace ScriptedTalk
         {
             TextAnimation = true;
             _namePanel.SetActive(text != string.Empty);
+            _characterNameText.text = characterName;
             _mainText.text = text;
             _mainText.maxVisibleCharacters = 0;
 
@@ -48,7 +50,7 @@ namespace ScriptedTalk
                 for (int i = 0; i < text.Length; i++)
                 {
                     _mainText.maxVisibleCharacters = (int)((Time.time - startTime) / waitTime);
-                    await UniTask.Yield();
+                    await UniTask.Yield(ct);
                 }
             }
             finally
@@ -59,29 +61,64 @@ namespace ScriptedTalk
         }
 
 
-        public void ShowFullText(string text)
+        public void ShowFullText(string characterName, string text)
         {
-            throw new System.NotImplementedException();
+            if (TextAnimation)
+            {
+                SkipAnimation();
+            }
+
+            _mainText.maxVisibleCharacters = text.Length;
+            _mainText.text = text;
         }
 
-        public void AnimationText(string text, int duration)
+        public void AnimationText(string characterName, string text, int textShowSpeed)
         {
-            throw new System.NotImplementedException();
+            if (TextAnimation)
+            {
+                Debug.LogWarning("テキストアニメーション再生中にテキストが更新されました。\n意図していない場合は修正してください");
+                SkipAnimation();
+
+                ResetCancellationTokenSource();
+
+                _talkTask = TalkAsync(characterName, text, textShowSpeed, _cts.Token);
+            }
         }
 
         public void SkipAnimation()
         {
-            throw new System.NotImplementedException();
+            if (TextAnimation)
+            {
+                _cts.Cancel();
+                _cts.Dispose();
+            }
         }
 
         public void ShowTextBox()
         {
-            throw new System.NotImplementedException();
+            _textPanel.SetActive(true);
+            _characterNameText.text = string.Empty;
+            _mainText.text = string.Empty;
         }
 
         public void HideTextBox()
         {
-            throw new System.NotImplementedException();
+            _textPanel.SetActive(false);
+            _namePanel.SetActive(false);
+            
+            _characterNameText.text = string.Empty;
+            _mainText.text = string.Empty;
+        }
+
+        private void ResetCancellationTokenSource()
+        {
+            if (_cts != null)
+            {
+                _cts.Cancel();
+                _cts.Dispose();
+            }
+
+            _cts = new CancellationTokenSource();
         }
     }
 }

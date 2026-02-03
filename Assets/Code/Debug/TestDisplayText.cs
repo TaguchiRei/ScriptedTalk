@@ -5,7 +5,7 @@ namespace ScriptedTalk
 {
     public class TestDisplayText : MonoBehaviour
     {
-        [SerializeField] private TextView _textView;
+        [SerializeField] private TextPanelView _textView;
         [SerializeField] private float _duration;
 
         private void Start()
@@ -29,7 +29,7 @@ namespace ScriptedTalk
                 Debug.Log("Dispatcher not found");
             }
 
-            _textView.AnimationText("Hello World", (int)(_duration * 1000));
+            //_textView.AnimationText("Hello World", (int)(_duration * 1000));
             Debug.Log("complete");
         }
     }

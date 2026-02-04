@@ -5,6 +5,8 @@ public class TalkRunner
 {
     private TalkRuntimeModel _trm;
     private ITextView _textView;
+    private ISelectionView _selectionView;
+
     private IBackgroundView _backgroundView;
     private ICharacterView _characterView;
     private IEffectView _effectView;
@@ -91,9 +93,10 @@ public class TalkRunner
         }
     }
 
-    public void ShowSelection()
+    public void AnsweredQuestion(int selectionNumber)
     {
-        
+        _trm.SelectNextGroup(selectionNumber);
+        OnNextButtonInput();
     }
 
     public enum TalkState

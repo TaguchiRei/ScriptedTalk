@@ -19,14 +19,6 @@ MonoBehaviour:
       HighLightCharacterID: 0
       TextShowDuration: 0
       Events: []
-    - Text: rq2
-      HighLightCharacterID: 0
-      TextShowDuration: 0
-      Events: []
-    - Text: rq2
-      HighLightCharacterID: 0
-      TextShowDuration: 0
-      Events: []
     Selections:
     - SelectionTitle: "\u3053\u3093\u306B\u3061\u306F"
       NextGroupGuid: 6e4e9f7d-e1ce-4334-bf30-6d26598f4626

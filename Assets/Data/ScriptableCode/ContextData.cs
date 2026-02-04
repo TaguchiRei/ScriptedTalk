@@ -9,9 +9,17 @@ public class ContextData : ScriptableObject
     public CharacterEntity[] AllCharacters;
     public List<TalkGroupData> Context;
 
-    public bool TryGetLine(int readingGroup, int readingLine, out TalkLineData talkLine)
+    /// <summary>
+    /// 指定した行のテキストを取得する。
+    /// </summary>
+    /// <param name="readingGroup"></param>
+    /// <param name="readingLine"></param>
+    /// <param name="talkLine"></param>
+    /// <returns>falseの場合は最後の行を読み込んだ時</returns>
+    public bool TryGetLine(string readingGroup, int readingLine, out TalkLineData talkLine)
     {
-        return Context[readingGroup].TryGetLine(readingLine, out talkLine);
+        var index = Context.FindIndex(item => item.Guid == readingGroup);
+        return Context[index].TryGetLine(readingLine, out talkLine);
     }
 
     public bool TryGetQuestion(int readingGroup, out List<SelectionData> selections)
@@ -48,7 +56,8 @@ public class TalkGroupData
     {
         if (readingLine >= TalkLines.Length)
         {
-            throw new ArgumentOutOfRangeException(nameof(readingLine));
+            talkLine = null;
+            return false;
         }
 
         talkLine = TalkLines[readingLine];

@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using TMPro;
@@ -9,9 +8,11 @@ namespace ScriptedTalk
     public class TextPanelView : MonoBehaviour, ITextView
     {
         /// <summary> 会話中かどうか </summary>
+        [ShowOnly]
         public bool IsTalking { get; private set; }
 
         /// <summary> テキストがアニメーション中かどうか </summary>
+        [ShowOnly]
         public bool TextAnimation { get; private set; }
 
         [SerializeField] private TextMeshProUGUI _characterNameText;
@@ -19,8 +20,16 @@ namespace ScriptedTalk
         [SerializeField] private GameObject _namePanel;
         [SerializeField] private GameObject _textPanel;
 
+        [Header("必要インターフェース群")] [SerializeField]
+        private BackgroundManager _backgroundView;
+
+        [SerializeField] private CharacterManager _characterView;
+        [SerializeField] private EffectManager _effectView;
+
         private UniTask _talkTask;
         private CancellationTokenSource _cts;
+        private TalkRunner _talkRunner;
+        private TalkRuntimeModel _talkRuntimeModel;
 
         public void StartTalking(string assetPath)
         {
@@ -32,6 +41,7 @@ namespace ScriptedTalk
             _mainText.text = string.Empty;
 
             //ToDo ユースケースのインスタンス化等を行う
+            //_talkRuntimeModel = new TalkRuntimeModel();
         }
 
         public async UniTask TalkAsync(string characterName, string text, int textShowSpeed, CancellationToken ct)
@@ -105,7 +115,7 @@ namespace ScriptedTalk
         {
             _textPanel.SetActive(false);
             _namePanel.SetActive(false);
-            
+
             _characterNameText.text = string.Empty;
             _mainText.text = string.Empty;
         }

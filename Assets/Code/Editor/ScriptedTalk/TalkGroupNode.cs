@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
@@ -44,11 +45,22 @@ public class TalkGroupNode : Node
         _talkLineContainer.style.marginTop = 4;
         extensionContainer.Add(_talkLineContainer);
 
+        var setStartButton = new Button(() =>
+            {
+                ContextData.StartGroupGuid = Data.Guid;
+                EditorUtility.SetDirty(ContextData);
+                UpdateStartNodeVisual();
+            })
+            { text = "Set as Start Group" };
+        _talkLineContainer.Add(setStartButton);
+
         DrawContents();
 
         RefreshExpandedState();
         style.minWidth = 500;
+        style.maxWidth = 1000;
     }
+
 
     public override void SetPosition(Rect newPos)
     {
@@ -69,12 +81,18 @@ public class TalkGroupNode : Node
 
         // Selections描画
         DrawSelections();
+
+        UpdateStartNodeVisual();
     }
 
     private void DrawTalkLines()
     {
         _talkLinesContainer.Clear();
         _serializedContext.Update();
+
+        // ★ラベル追加
+        _talkLinesContainer.Add(new Label("Talk Lines")
+            { style = { unityFontStyleAndWeight = FontStyle.Bold, marginBottom = 4 } });
 
         for (int i = 0; i < _talkLinesProperty.arraySize; i++)
         {
@@ -90,12 +108,10 @@ public class TalkGroupNode : Node
             element.style.flexGrow = 1;
             element.Bind(_serializedContext);
 
-            // 右側操作全体（横）
             var controlArea = new VisualElement();
             controlArea.style.flexDirection = FlexDirection.Row;
             controlArea.style.marginLeft = 4;
 
-            // + / -（縦）
             var addDeleteArea = new VisualElement();
             addDeleteArea.style.flexDirection = FlexDirection.Column;
             addDeleteArea.style.justifyContent = Justify.Center;
@@ -114,7 +130,6 @@ public class TalkGroupNode : Node
                 DrawTalkLines();
             }) { text = "−" };
 
-            // ↑ / ↓（縦）
             var moveArea = new VisualElement();
             moveArea.style.flexDirection = FlexDirection.Column;
             moveArea.style.justifyContent = Justify.Center;
@@ -138,7 +153,6 @@ public class TalkGroupNode : Node
                 DrawTalkLines();
             }) { text = "↓" };
 
-            // サイズ統一
             foreach (var b in new[] { addButton, deleteButton, upButton, downButton })
                 b.style.width = 24;
 
@@ -157,7 +171,9 @@ public class TalkGroupNode : Node
             _talkLinesContainer.Add(row);
         }
 
-        if (Data.TalkLines != null && Data.TalkLines.Length == 0)
+        Data.TalkLines ??= Array.Empty<TalkLineData>();
+
+        if (Data.TalkLines.Length == 0)
         {
             _talkLinesContainer.Add(new Button(() =>
             {
@@ -168,26 +184,47 @@ public class TalkGroupNode : Node
         }
     }
 
+
     private void DrawSelections()
     {
         if (_selectionContainer != null) _talkLineContainer.Remove(_selectionContainer);
         _selectionContainer = new VisualElement();
         _talkLineContainer.Add(_selectionContainer);
 
+        if (Data == null) return;
+
+        // ★ラベル追加
+        _selectionContainer.Add(new Label("Selections")
+            { style = { unityFontStyleAndWeight = FontStyle.Bold, marginBottom = 4 } });
+
         for (int i = 0; i < Data.Selections.Count; i++)
         {
             var sel = Data.Selections[i];
-            var row = new VisualElement { style = { flexDirection = FlexDirection.Row } };
+            var row = new VisualElement { style = { flexDirection = FlexDirection.Row, alignItems = Align.Center } };
 
             var tf = new TextField { value = sel.SelectionTitle, style = { flexGrow = 1 } };
             int idx = i;
             tf.RegisterValueChangedCallback(evt =>
             {
                 sel.SelectionTitle = evt.newValue;
-                (outputContainer[idx] as Port).portName = evt.newValue;
+                if (idx < outputContainer.childCount)
+                    (outputContainer[idx] as Port).portName = evt.newValue;
             });
 
+            var deleteButton = new Button(() =>
+                {
+                    if (idx < outputContainer.childCount)
+                        outputContainer.Remove(outputContainer[idx]);
+
+                    Data.Selections.RemoveAt(idx);
+                    DrawSelections();
+                })
+                { text = "×" };
+            deleteButton.style.width = 24;
+            deleteButton.style.marginLeft = 4;
+
             row.Add(tf);
+            row.Add(deleteButton);
             _selectionContainer.Add(row);
 
             if (i >= outputContainer.childCount) AddOutputPort(sel.SelectionTitle);
@@ -199,6 +236,7 @@ public class TalkGroupNode : Node
             DrawSelections();
         }) { text = "Add Selection" });
     }
+
 
     private void AddOutputPort(string portName)
     {
@@ -218,5 +256,17 @@ public class TalkGroupNode : Node
         port.portName = "In";
         inputContainer.Add(port);
         RefreshPorts();
+    }
+
+    private void UpdateStartNodeVisual()
+    {
+        if (ContextData.StartGroupGuid == Data.Guid)
+        {
+            style.backgroundColor = Color.gray3;
+        }
+        else
+        {
+            style.backgroundColor = Color.gray2;
+        }
     }
 }

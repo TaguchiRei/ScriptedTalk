@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ScriptedTalk;
 using ScriptedTalk.TalkSystem.Entity.Character;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ public class ContextData : ScriptableObject
 {
     public CharacterEntity[] AllCharacters;
     public List<TalkGroupData> Context;
-    public string StartGroupGuid;
+    [ShowOnly] public string StartGroupGuid;
 
     public int GetGroupIndex(string readingGroupGuid)
     {
@@ -53,7 +54,7 @@ public class TalkGroupData
     public string Guid = System.Guid.NewGuid().ToString();
     public TalkLineData[] TalkLines;
 
-    public List<SelectionData> Selections;
+    public List<SelectionData> Selections = new();
 
     public bool IsBranch() => Selections != null && TalkLines.Length > 0;
 
@@ -79,7 +80,7 @@ public class TalkGroupData
 public class TalkLineData
 {
     public string Text;
-    public string HighLightCharacterName;
+    public string HighLightCharacterName = nameof(CharacterName.None);
     public int TextShowSpeed;
     [SerializeReference, SubclassSelector] public IEvent[] Events;
 }

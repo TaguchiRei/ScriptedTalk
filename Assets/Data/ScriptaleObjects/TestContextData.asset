@@ -13,37 +13,25 @@ MonoBehaviour:
   m_Name: TestContextData
   m_EditorClassIdentifier: Assembly-CSharp::ContextData
   Context:
-  - Guid: 7483ff93-3fda-4458-a50e-1831136ec18c
+  - Guid: a5641440-dbbc-4c47-b865-a624153fc382
     TalkLines:
-    - Text: "\u3053\u3093\u306B\u3061\u306F\uFF01"
+    - Text: "\u3053\u3093\u306B\u3061\u306F"
       HighLightCharacterName: 
       TextShowSpeed: 0
       Events: []
     Selections:
-    - SelectionTitle: "\u3053\u3093\u306B\u3061\u306F"
-      NextGroupGuid: 6e4e9f7d-e1ce-4334-bf30-6d26598f4626
-    - SelectionTitle: "\u3055\u3088\u3046\u306A\u3089"
-      NextGroupGuid: 4a3c1c6c-3be5-4f21-a36e-519f2182db33
-    - SelectionTitle: "\u3088\u304F\u805E\u3053\u3048\u306A\u304B\u3063\u305F"
-      NextGroupGuid: 7483ff93-3fda-4458-a50e-1831136ec18c
-    Position: {x: -538, y: 173}
-  - Guid: 6e4e9f7d-e1ce-4334-bf30-6d26598f4626
-    TalkLines:
-    - Text: "\u5143\u6C17\u3067\u3059\u304B\uFF1F"
-      HighLightCharacterName: 
-      TextShowSpeed: 0
-      Events: []
+    - SelectionTitle: 
+      NextGroupGuid: 
+    - SelectionTitle: 
+      NextGroupGuid: 
+    - SelectionTitle: New Selection
+      NextGroupGuid: 
+    Position: {x: 290, y: 143}
+  - Guid: 6cfaba40-82b7-44c1-a351-67ff894b157d
+    TalkLines: []
     Selections: []
-    Position: {x: -0.000032424927, y: 173.00002}
-  - Guid: 4a3c1c6c-3be5-4f21-a36e-519f2182db33
-    TalkLines:
-    - Text: "\u3055\u3088\u3046\u306A\u3089"
-      HighLightCharacterName: 
-      TextShowSpeed: 0
-      Events: []
-    Selections: []
-    Position: {x: -0.000032424927, y: 367.49994}
-  StartGroupGuid: 
+    Position: {x: 1144.2565, y: 143}
+  StartGroupGuid: a5641440-dbbc-4c47-b865-a624153fc382
   references:
     version: 2
     RefIds: []

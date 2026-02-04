@@ -28,7 +28,9 @@ public class TalkRunner
         else
         {
             _trm.TryGetNextLine(out var textData);
-            _view.AnimationText(string.Empty, textData.Text, textData.TextShowSpeed);
+            var name = textData.HighLightCharacterName;
+            if (name == "None") name = string.Empty;
+            _view.AnimationText(name, textData.Text, textData.TextShowSpeed);
         }
     }
 }

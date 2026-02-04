@@ -16,8 +16,8 @@ MonoBehaviour:
   - Guid: 7483ff93-3fda-4458-a50e-1831136ec18c
     TalkLines:
     - Text: "\u3053\u3093\u306B\u3061\u306F\uFF01"
-      HighLightCharacterID: 0
-      TextShowDuration: 0
+      HighLightCharacterName: 
+      TextShowSpeed: 0
       Events: []
     Selections:
     - SelectionTitle: "\u3053\u3093\u306B\u3061\u306F"
@@ -30,19 +30,20 @@ MonoBehaviour:
   - Guid: 6e4e9f7d-e1ce-4334-bf30-6d26598f4626
     TalkLines:
     - Text: "\u5143\u6C17\u3067\u3059\u304B\uFF1F"
-      HighLightCharacterID: 0
-      TextShowDuration: 0
+      HighLightCharacterName: 
+      TextShowSpeed: 0
       Events: []
     Selections: []
     Position: {x: -0.000032424927, y: 173.00002}
   - Guid: 4a3c1c6c-3be5-4f21-a36e-519f2182db33
     TalkLines:
     - Text: "\u3055\u3088\u3046\u306A\u3089"
-      HighLightCharacterID: 0
-      TextShowDuration: 0
+      HighLightCharacterName: 
+      TextShowSpeed: 0
       Events: []
     Selections: []
     Position: {x: -0.000032424927, y: 367.49994}
+  StartGroupGuid: 
   references:
     version: 2
     RefIds: []

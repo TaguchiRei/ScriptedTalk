@@ -1,4 +1,4 @@
 public interface IRequireBackgroundView
 {
-    void SetBackgroundView();
+    void SetBackgroundView(IBackgroundView backgroundView);
 }

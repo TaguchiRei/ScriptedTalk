@@ -1,4 +1,4 @@
 public interface IRequireEffectView
 {
-    void SetEffectView();
+    void SetEffectView(IEffectView effectView);
 }

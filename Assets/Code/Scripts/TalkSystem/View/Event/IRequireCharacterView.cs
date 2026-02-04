@@ -1,4 +1,4 @@
 public interface IRequireCharacterView
 {
-    void SetCharacterView();
+    void SetCharacterView(ICharacterView characterView);
 }

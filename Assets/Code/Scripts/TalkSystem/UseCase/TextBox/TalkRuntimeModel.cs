@@ -57,12 +57,17 @@ namespace ScriptedTalk
             }
         }
 
+        public bool IsBranch()
+        {
+            return _contextData.Context[_readingGroupIndex].IsBranch();
+        }
+
         /// <summary>
         /// 選択肢を取得する
         /// </summary>
         /// <param name="selections"></param>
         /// <returns>選択肢がない場合はfalse</returns>
-        public bool GetSelection(out string[] selections)
+        public bool TryGetSelection(out string[] selections)
         {
             if (_contextData.TryGetQuestion(_readingGroupIndex, out var questions))
             {

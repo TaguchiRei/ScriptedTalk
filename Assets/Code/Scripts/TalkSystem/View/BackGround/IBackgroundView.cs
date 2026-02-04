@@ -1,4 +1,3 @@
-public  class IBackgroundView
+public interface IBackgroundView
 {
-    
 }

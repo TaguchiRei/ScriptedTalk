@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using ScriptedTalk;
 
-public class TalkRunner
+public class TalkRunner 
 {
     private TalkRuntimeModel _trm;
     private ITextView _textView;

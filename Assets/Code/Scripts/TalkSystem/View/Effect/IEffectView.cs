@@ -1,4 +1,4 @@
-public  class IEffectView
+public interface IEffectView
 {
     
 }

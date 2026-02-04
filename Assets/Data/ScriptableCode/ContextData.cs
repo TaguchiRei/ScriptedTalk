@@ -8,6 +8,12 @@ public class ContextData : ScriptableObject
 {
     public CharacterEntity[] AllCharacters;
     public List<TalkGroupData> Context;
+    public string StartGroupGuid;
+
+    public int GetGroupIndex(string readingGroupGuid)
+    {
+        return Context.FindIndex(item => item.Guid == readingGroupGuid);
+    }
 
     /// <summary>
     /// 指定した行のテキストを取得する。
@@ -16,10 +22,9 @@ public class ContextData : ScriptableObject
     /// <param name="readingLine"></param>
     /// <param name="talkLine"></param>
     /// <returns>falseの場合は最後の行を読み込んだ時</returns>
-    public bool TryGetLine(string readingGroup, int readingLine, out TalkLineData talkLine)
+    public bool TryGetLine(int readingGroup, int readingLine, out TalkLineData talkLine)
     {
-        var index = Context.FindIndex(item => item.Guid == readingGroup);
-        return Context[index].TryGetLine(readingLine, out talkLine);
+        return Context[readingGroup].TryGetLine(readingLine, out talkLine);
     }
 
     public bool TryGetQuestion(int readingGroup, out List<SelectionData> selections)

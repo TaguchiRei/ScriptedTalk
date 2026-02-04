@@ -4,7 +4,6 @@ using Cysharp.Threading.Tasks;
 using ScriptedTalk.TalkSystem.Entity.Character;
 using ScriptedTalk.TalkSystem.UseCase.Character;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using Vector3 = System.Numerics.Vector3;
 
@@ -20,20 +19,7 @@ namespace ScriptedTalk
         private CharacterDataAsset[] _characterDataCash;
         private GameObject[] _characters;
 
-
-        /// <summary>
-        /// 会話の初めにすべてのキャラクターを作成する
-        /// </summary>
-        /// <param name="allCharacters"></param>
-        public async UniTask StartTalk(CharacterEntity[] allCharacters)
-        {
-            _characterDataCash = new CharacterDataAsset[allCharacters.Length];
-            for (int i = 0; i < allCharacters.Length; i++)
-            {
-                _characterDataCash[i] =
-                    await Addressables.LoadAssetAsync<CharacterDataAsset>(allCharacters[i].CharacterDataKey);
-            }
-        }
+        
 
 
         public void CharacterShow(CharacterEntity character)

@@ -7,6 +7,7 @@ public class CharacterDataAsset : ScriptableObject
     public CharacterData[] Characters;
 }
 
+[System.Serializable]
 public class CharacterData
 {
     public string Name;

@@ -1,4 +1,4 @@
-using UnityEngine;
+using System;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
@@ -7,6 +7,7 @@ public class TalkLineDataElement : VisualElement
 {
     private const float IntFieldWidth = 40f;
     private const float EventsLeftPadding = 30f;
+    private const float CharacterFieldWidth = 120f;
 
     public TalkLineDataElement(SerializedProperty property)
     {
@@ -14,38 +15,82 @@ public class TalkLineDataElement : VisualElement
         style.marginBottom = 2;
 
         var textProp = property.FindPropertyRelative("Text");
-        var highlightIdProp = property.FindPropertyRelative("HighLightCharacterID");
-        var durationProp = property.FindPropertyRelative("TextShowDuration");
+        var highlightNameProp = property.FindPropertyRelative("HighLightCharacterName");
+        var speedProp = property.FindPropertyRelative("TextShowSpeed");
         var eventsProp = property.FindPropertyRelative("Events");
 
-        // ===== 1行目: Text + HighLightCharacterID + TextShowDuration =====
-        var row = new VisualElement();
-        row.style.flexDirection = FlexDirection.Row;
-        row.style.alignItems = Align.Center;
+        // ===== 1行目 =====
+        var row = new VisualElement
+        {
+            style =
+            {
+                flexDirection = FlexDirection.Row,
+                alignItems = Align.Center
+            }
+        };
 
-        // Text（残り幅）
-        var textField = new PropertyField(textProp);
+        // Text
+        var textField = new PropertyField(textProp)
+        {
+            label = ""
+        };
         textField.style.flexGrow = 1;
-        textField.label = ""; // ラベル非表示
         row.Add(textField);
 
-        // HighLightCharacterID（固定幅、ラベル非表示）
-        var highlightField = new PropertyField(highlightIdProp);
-        highlightField.style.width = IntFieldWidth;
-        highlightField.label = ""; // ラベルなし
-        row.Add(highlightField);
+        // CharacterName (string ←→ enum)
+        var characterEnumField = CreateCharacterEnumField(highlightNameProp);
+        characterEnumField.style.width = CharacterFieldWidth;
+        row.Add(characterEnumField);
 
-        // TextShowDuration（固定幅、ラベル非表示）
-        var durationField = new PropertyField(durationProp);
-        durationField.style.width = IntFieldWidth;
-        durationField.label = ""; // ラベルなし
-        row.Add(durationField);
+        // TextShowSpeed
+        var speedField = new PropertyField(speedProp)
+        {
+            label = ""
+        };
+        speedField.style.width = IntFieldWidth;
+        row.Add(speedField);
 
         Add(row);
 
-        // ===== 2行目: Events（左にインデント） =====
+        // ===== 2行目 Events =====
         var eventsField = new PropertyField(eventsProp, "Events");
         eventsField.style.marginLeft = EventsLeftPadding;
         Add(eventsField);
+    }
+
+    private EnumField CreateCharacterEnumField(SerializedProperty stringProperty)
+    {
+        CharacterName currentValue = ParseEnum(stringProperty.stringValue);
+
+        var enumField = new EnumField(currentValue)
+        {
+            label = ""
+        };
+
+        enumField.RegisterValueChangedCallback(evt =>
+        {
+            var newEnum = (CharacterName)evt.newValue;
+
+            stringProperty.serializedObject.Update();
+            stringProperty.stringValue = newEnum.ToString();
+            stringProperty.serializedObject.ApplyModifiedProperties();
+        });
+
+        return enumField;
+    }
+
+    private CharacterName ParseEnum(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return CharacterName.None;
+        }
+
+        if (Enum.TryParse(value, out CharacterName result))
+        {
+            return result;
+        }
+
+        return CharacterName.None;
     }
 }

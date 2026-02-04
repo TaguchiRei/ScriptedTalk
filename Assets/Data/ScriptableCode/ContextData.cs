@@ -79,8 +79,8 @@ public class TalkGroupData
 public class TalkLineData
 {
     public string Text;
-    public int HighLightCharacterID;
-    public int TextShowDuration;
+    public string HighLightCharacterName;
+    public int TextShowSpeed;
     [SerializeReference, SubclassSelector] public IEvent[] Events;
 }
 

@@ -77,8 +77,9 @@ public class TalkGroupNodeView
             Undo.RecordObject(contextData, "Edit TalkLine");
 
             line.Text = EditorGUILayout.TextField("Text", line.Text);
-            line.HighLightCharacterID = EditorGUILayout.IntField("HighLightCharacterID", line.HighLightCharacterID);
-            line.TextShowDuration = EditorGUILayout.IntField("TextShowDuration", line.TextShowDuration);
+            line.HighLightCharacterName =
+                EditorGUILayout.TextField("HighLightCharacterID", line.HighLightCharacterName);
+            line.TextShowSpeed = EditorGUILayout.IntField("TextShowDuration", line.TextShowSpeed);
 
             // Events 表示
             if (line.Events != null)

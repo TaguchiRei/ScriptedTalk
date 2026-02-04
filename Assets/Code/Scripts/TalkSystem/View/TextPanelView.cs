@@ -2,6 +2,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace ScriptedTalk
 {
@@ -25,13 +26,15 @@ namespace ScriptedTalk
 
         [SerializeField] private CharacterManager _characterView;
         [SerializeField] private EffectManager _effectView;
+        [SerializeField] private SoundSystem _soundSystem;
+        [SerializeField] private SelectionManager _selectionView;
 
         private UniTask _talkTask;
         private CancellationTokenSource _cts;
         private TalkRunner _talkRunner;
         private TalkRuntimeModel _talkRuntimeModel;
 
-        public void StartTalking(string assetPath)
+        public async UniTask StartTalking(string assetPath)
         {
             if (IsTalking) return;
             IsTalking = true;
@@ -40,8 +43,18 @@ namespace ScriptedTalk
             _characterNameText.text = string.Empty;
             _mainText.text = string.Empty;
 
+            var result = await Addressables.LoadAssetAsync<ContextData>(assetPath);
+
             //ToDo ユースケースのインスタンス化等を行う
-            //_talkRuntimeModel = new TalkRuntimeModel();
+            _talkRuntimeModel = new TalkRuntimeModel(result);
+            _talkRunner = new(
+                _talkRuntimeModel,
+                this,
+                _selectionView,
+                _backgroundView,
+                _characterView,
+                _effectView,
+                _soundSystem);
         }
 
         public async UniTask TalkAsync(string characterName, string text, int textShowSpeed, CancellationToken ct)

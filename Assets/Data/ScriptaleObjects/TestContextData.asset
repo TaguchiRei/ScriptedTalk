@@ -15,7 +15,7 @@ MonoBehaviour:
   Context:
   - Guid: a5641440-dbbc-4c47-b865-a624153fc382
     TalkLines:
-    - Text: "\u3053\u3093\u306B\u3061\u306F"
+    - Text: 
       HighLightCharacterName: 
       TextShowSpeed: 0
       Events: []
@@ -30,7 +30,7 @@ MonoBehaviour:
   - Guid: 6cfaba40-82b7-44c1-a351-67ff894b157d
     TalkLines: []
     Selections: []
-    Position: {x: 1144.2565, y: 143}
+    Position: {x: 928.78467, y: 142.99998}
   StartGroupGuid: a5641440-dbbc-4c47-b865-a624153fc382
   references:
     version: 2

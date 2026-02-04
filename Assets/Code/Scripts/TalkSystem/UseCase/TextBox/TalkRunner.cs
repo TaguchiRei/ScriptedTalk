@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using ScriptedTalk;
 
-public class TalkRunner 
+public class TalkRunner
 {
     private TalkRuntimeModel _trm;
     private ITextView _textView;
@@ -10,13 +10,26 @@ public class TalkRunner
     private IBackgroundView _backgroundView;
     private ICharacterView _characterView;
     private IEffectView _effectView;
+    private ISoundSystem _soundSystem;
 
     private List<IEvent> _playingEvents;
 
-    public TalkRunner(TalkRuntimeModel trm, ITextView textView)
+    public TalkRunner(
+        TalkRuntimeModel trm,
+        ITextView textView,
+        ISelectionView selectionView,
+        IBackgroundView backgroundView,
+        ICharacterView characterView,
+        IEffectView effectView,
+        ISoundSystem soundSystem)
     {
         _trm = trm;
         _textView = textView;
+        _selectionView = selectionView;
+        _backgroundView = backgroundView;
+        _characterView = characterView;
+        _effectView = effectView;
+        _soundSystem = soundSystem;
     }
 
     public void StartTalk()
@@ -72,6 +85,16 @@ public class TalkRunner
                 if (talkEvent is IRequireEffectView needEffectView)
                 {
                     needEffectView.SetEffectView(_effectView);
+                }
+
+                if (talkEvent is IRequireSoundSystem needSoundSystem)
+                {
+                    needSoundSystem.SetSoundView(_soundSystem);
+                }
+
+                if (talkEvent is IRequireCharacterView requireCharacterView)
+                {
+                    requireCharacterView.SetCharacterView(_characterView);
                 }
 
                 #endregion

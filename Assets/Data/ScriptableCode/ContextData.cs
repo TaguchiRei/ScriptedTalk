@@ -56,7 +56,7 @@ public class TalkGroupData
 
     public List<SelectionData> Selections = new();
 
-    public bool IsBranch() => Selections != null && TalkLines.Length > 0;
+    public bool IsBranch() => Selections != null && Selections.Count > 0;
 
     public bool TryGetLine(int readingLine, out TalkLineData talkLine)
     {

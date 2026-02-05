@@ -63,6 +63,7 @@ public class TalkRunner
         {
             Debug.Log("GetLine");
             var next = _trm.TryGetNextLine(out var textData);
+            Debug.Log($"Next is {next}");
 
             var name = textData.HighLightCharacterName;
             if (name == "None") name = string.Empty;
@@ -135,8 +136,12 @@ public class TalkRunner
     public void AnsweredQuestion(int selectionNumber)
     {
         _trm.SelectNextGroup(selectionNumber);
+        if (_textView.TextAnimation)
+        {
+            _textView.SkipAnimation();
+        }
+
         _talkState = TalkState.Talking;
-        OnNextButtonInput();
     }
 
     public enum TalkState

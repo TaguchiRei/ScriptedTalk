@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 namespace ScriptedTalk
 {
@@ -7,6 +6,8 @@ namespace ScriptedTalk
     public class CharacterShowEvent : IEvent, IRequireCharacterView
     {
         public Action EndAction { get; set; }
+        
+        private ICharacterView _characterView;
 
         public void Execute()
         {

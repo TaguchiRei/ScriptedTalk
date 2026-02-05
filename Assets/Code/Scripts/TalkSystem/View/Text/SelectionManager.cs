@@ -12,6 +12,8 @@ namespace ScriptedTalk
 
         private GameObject[] _selectionInstance;
 
+        private Action<int> _onSelect;
+
         public void ShowSelection(string[] selections, Action<int> ansAction)
         {
             Debug.Log("selectionsCount" + selections.Length);
@@ -27,6 +29,7 @@ namespace ScriptedTalk
                 var button = _selectionInstance[i].GetComponentInChildren<Button>();
                 var i1 = i;
                 button.onClick.AddListener(() => SelectAny(i1));
+                _onSelect = ansAction;
             }
         }
 
@@ -38,6 +41,7 @@ namespace ScriptedTalk
             }
 
             gameObject.SetActive(false);
+            _onSelect.Invoke(index);
         }
     }
 }

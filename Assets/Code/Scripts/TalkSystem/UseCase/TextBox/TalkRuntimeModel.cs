@@ -44,6 +44,7 @@ namespace ScriptedTalk
         /// <returns></returns>
         public bool TryGetNextLine(out TalkLineData line)
         {
+            Debug.Log($"_readingGroupIndex: {_readingGroupIndex}, _readingLine: {_readingLine}");
             //最終行に到達あるいは到達済みの時に読んだ時falseを返し、最終行の内容を返す
             if (_contextData.TryGetLine(_readingGroupIndex, _readingLine, out line) && !_lastLine)
             {
@@ -98,6 +99,7 @@ namespace ScriptedTalk
             _readingGroup = _selectionGuids[selectionIndex];
             _readingGroupIndex = GetIndex();
             _readingLine = 0;
+            _lastLine = false;
         }
 
         private int GetIndex()

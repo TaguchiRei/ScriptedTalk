@@ -17,11 +17,12 @@ MonoBehaviour:
     TalkLines:
     - Text: "\u3053\u3093\u306B\u3061\u306FScriptedTalk\u3067\u3059\u3002"
       HighLightCharacterName: ScriptedTalk
-      TextShowSpeed: 1
-      Events: []
+      TextShowSpeed: 0.1
+      Events:
+      - rid: 543164368145350719
     - Text: "\u308F\u305F\u3057\u306F\u5FA1\u89A7\u306E\u901A\u308ARPG\u7B49\u3067\u4F7F\u3048\u308B\u4F1A\u8A71\u6587\u3092\u5236\u4F5C\u3001\u518D\u751F\u3059\u308B\u30D7\u30ED\u30B0\u30E9\u30E0\u3067\u3059\u3002"
       HighLightCharacterName: ScriptedTalk
-      TextShowSpeed: 1
+      TextShowSpeed: 0.1
       Events: []
     - Text: "\u308F\u305F\u3057\u306F\u7279\u306BUnity\u4E0A\u3067\u5B8C\u7D50\u3059\u308B\u30B7\u30CA\u30EA\u30AA\u30D1\u30FC\u30C8\u306E\u5236\u4F5C\u306B\u7279\u5316\u3057\u305F\u30C4\u30FC\u30EB\u3067\u3059\u3002"
       HighLightCharacterName: ScriptedTalk
@@ -71,12 +72,12 @@ MonoBehaviour:
       Events: []
     Selections:
     - SelectionTitle: "\u7121\u9650\u30EB\u30FC\u30D7\u3068\u304B\u306F\u4F5C\u308C\u308B\uFF1F"
-      NextGroupGuid: 863a0994-d46e-4f1d-ac2c-2437a6485781
-    - SelectionTitle: "\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u3092\u52D5\u304B\u3057\u305F\u308A\u3067\u304D\u308B\uFF1F"
       NextGroupGuid: 6cfaba40-82b7-44c1-a351-67ff894b157d
+    - SelectionTitle: "\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u3092\u52D5\u304B\u3057\u305F\u308A\u3067\u304D\u308B\uFF1F"
+      NextGroupGuid: 863a0994-d46e-4f1d-ac2c-2437a6485781
     - SelectionTitle: "\u805E\u304F\u3053\u3068\u306A\u3069\u306A\u3044\u3002\u6D88\u3048\u308D\u3002"
       NextGroupGuid: 80238f91-44bf-4774-8efb-937bb636d788
-    Position: {x: 1317, y: -7}
+    Position: {x: 1328, y: -70}
   - Guid: 863a0994-d46e-4f1d-ac2c-2437a6485781
     TalkLines:
     - Text: "\u3082\u3061\u308D\u3093\u3067\u304D\u307E\u3059\u3088\uFF01"
@@ -114,4 +115,7 @@ MonoBehaviour:
   StartGroupGuid: a5641440-dbbc-4c47-b865-a624153fc382
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 543164368145350719
+      type: {class: CharacterShowEvent, ns: ScriptedTalk, asm: Assembly-CSharp}
+      data: 

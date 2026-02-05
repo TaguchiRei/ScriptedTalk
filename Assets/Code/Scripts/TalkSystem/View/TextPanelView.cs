@@ -50,7 +50,6 @@ namespace ScriptedTalk
 
             var result = await Addressables.LoadAssetAsync<ContextData>(assetPath);
 
-            //ToDo ユースケースのインスタンス化等を行う
             _talkRuntimeModel = new TalkRuntimeModel(result);
             _talkRunner = new(
                 _talkRuntimeModel,
@@ -90,7 +89,12 @@ namespace ScriptedTalk
                     if (_talkRuntimeModel.TryGetSelection(out var selection))
                     {
                         Debug.Log("Get Selections");
-                        _selectionView.ShowSelection(selection, _talkRunner.AnsweredQuestion);
+                        _selectionView.ShowSelection(selection, i =>
+                        {
+                            _talkRunner.AnsweredQuestion(i);
+
+                            OnClick(default);
+                        });
                     }
 
                     break;

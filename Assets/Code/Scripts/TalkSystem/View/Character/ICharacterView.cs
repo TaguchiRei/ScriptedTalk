@@ -1,5 +1,4 @@
 using UnityEngine;
-using Vector3 = System.Numerics.Vector3;
 
 public interface ICharacterView
 {

@@ -16,7 +16,7 @@ namespace ScriptedTalk
         {
             _contextData = contextData;
             _readingGroup = _contextData.StartGroupGuid;
-            _readingLine = -1;
+            _readingLine = 0;
             _lastLine = false;
             _readingGroupIndex = GetIndex();
         }
@@ -97,6 +97,7 @@ namespace ScriptedTalk
         {
             _readingGroup = _selectionGuids[selectionIndex];
             _readingGroupIndex = GetIndex();
+            _readingLine = 0;
         }
 
         private int GetIndex()

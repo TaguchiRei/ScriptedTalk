@@ -4,7 +4,7 @@ public interface ITextView
 
     public void ShowFullText(string characterName, string text);
 
-    public void AnimationText(string characterName, string text, int textShowSpeed);
+    public void AnimationText(string characterName, string text, float textShowSpeed);
 
     public void SkipAnimation();
 

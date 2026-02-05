@@ -15,22 +15,102 @@ MonoBehaviour:
   Context:
   - Guid: a5641440-dbbc-4c47-b865-a624153fc382
     TalkLines:
-    - Text: 
-      HighLightCharacterName: 
-      TextShowSpeed: 0
+    - Text: "\u3053\u3093\u306B\u3061\u306FScriptedTalk\u3067\u3059\u3002"
+      HighLightCharacterName: ScriptedTalk
+      TextShowSpeed: 1
+      Events: []
+    - Text: "\u308F\u305F\u3057\u306F\u5FA1\u89A7\u306E\u901A\u308ARPG\u7B49\u3067\u4F7F\u3048\u308B\u4F1A\u8A71\u6587\u3092\u5236\u4F5C\u3001\u518D\u751F\u3059\u308B\u30D7\u30ED\u30B0\u30E9\u30E0\u3067\u3059\u3002"
+      HighLightCharacterName: ScriptedTalk
+      TextShowSpeed: 1
+      Events: []
+    - Text: "\u308F\u305F\u3057\u306F\u7279\u306BUnity\u4E0A\u3067\u5B8C\u7D50\u3059\u308B\u30B7\u30CA\u30EA\u30AA\u30D1\u30FC\u30C8\u306E\u5236\u4F5C\u306B\u7279\u5316\u3057\u305F\u30C4\u30FC\u30EB\u3067\u3059\u3002"
+      HighLightCharacterName: ScriptedTalk
+      TextShowSpeed: 0.1
+      Events: []
+    - Text: "\u3053\u3061\u3089\u3092\u898B\u3066\u304F\u3060\u3055\u3044\u3002"
+      HighLightCharacterName: ScriptedTalk
+      TextShowSpeed: 0.1
+      Events: []
+    - Text: "\u3053\u306E\u3088\u3046\u306B\u30CE\u30FC\u30C9\u30D9\u30FC\u30B9\u3067\u30B7\u30CA\u30EA\u30AA\u3092\u4F5C\u308B\u3053\u3068\u304C\u3067\u304D\u307E\u3059\u3002"
+      HighLightCharacterName: ScriptedTalk
+      TextShowSpeed: 0.1
+      Events: []
+    - Text: "\u30CE\u30FC\u30C9\u30D9\u30FC\u30B9\u306A\u306E\u3067\u4F1A\u8A71\u306E\u5206\u5C90\u306A\u3069\u3092\u76F4\u611F\u7684\u306B\u4F5C\u6210\u3059\u308B\u3053\u3068\u304C\u3067\u304D\u307E\u3059\u3002"
+      HighLightCharacterName: ScriptedTalk
+      TextShowSpeed: 0.1
+      Events: []
+    - Text: "\u4F55\u306B\u3064\u3044\u3066\u805E\u304D\u305F\u3044\u3067\u3059\u304B\uFF1F"
+      HighLightCharacterName: ScriptedTalk
+      TextShowSpeed: 0.1
       Events: []
     Selections:
-    - SelectionTitle: 
-      NextGroupGuid: 
-    - SelectionTitle: 
-      NextGroupGuid: 
-    - SelectionTitle: New Selection
-      NextGroupGuid: 
-    Position: {x: 290, y: 143}
+    - SelectionTitle: "\u7121\u9650\u30EB\u30FC\u30D7\u3068\u304B\u306F\u4F5C\u308C\u308B\uFF1F"
+      NextGroupGuid: 6cfaba40-82b7-44c1-a351-67ff894b157d
+    - SelectionTitle: "\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u3092\u52D5\u304B\u3057\u305F\u308A\u3067\u304D\u308B\uFF1F"
+      NextGroupGuid: 863a0994-d46e-4f1d-ac2c-2437a6485781
+    - SelectionTitle: "\u805E\u304F\u3053\u3068\u306A\u3069\u306A\u3044\u3002\u6D88\u3048\u308D\u3002"
+      NextGroupGuid: 80238f91-44bf-4774-8efb-937bb636d788
+    Position: {x: -6, y: 36}
   - Guid: 6cfaba40-82b7-44c1-a351-67ff894b157d
-    TalkLines: []
+    TalkLines:
+    - Text: "\u5F53\u7136\u7121\u9650\u30EB\u30FC\u30D7\u3082\u4F5C\u308C\u307E\u3059\u3088\uFF01"
+      HighLightCharacterName: ScriptedTalk
+      TextShowSpeed: 0.1
+      Events: []
+    Selections:
+    - SelectionTitle: "\u5618\u3060\uFF01"
+      NextGroupGuid: 6cfaba40-82b7-44c1-a351-67ff894b157d
+    - SelectionTitle: "\u672C\u5F53\u3060\uFF01"
+      NextGroupGuid: cd0bd9ab-55dd-44a9-b5eb-0e96e05725be
+    Position: {x: 675, y: -249.72}
+  - Guid: cd0bd9ab-55dd-44a9-b5eb-0e96e05725be
+    TalkLines:
+    - Text: "\u4ED6\u306B\u805E\u304D\u305F\u3044\u3053\u3068\u306F\u3042\u308A\u307E\u3059\u304B\uFF1F"
+      HighLightCharacterName: 
+      TextShowSpeed: 0.1
+      Events: []
+    Selections:
+    - SelectionTitle: "\u7121\u9650\u30EB\u30FC\u30D7\u3068\u304B\u306F\u4F5C\u308C\u308B\uFF1F"
+      NextGroupGuid: 863a0994-d46e-4f1d-ac2c-2437a6485781
+    - SelectionTitle: "\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u3092\u52D5\u304B\u3057\u305F\u308A\u3067\u304D\u308B\uFF1F"
+      NextGroupGuid: 6cfaba40-82b7-44c1-a351-67ff894b157d
+    - SelectionTitle: "\u805E\u304F\u3053\u3068\u306A\u3069\u306A\u3044\u3002\u6D88\u3048\u308D\u3002"
+      NextGroupGuid: 80238f91-44bf-4774-8efb-937bb636d788
+    Position: {x: 1317, y: -7}
+  - Guid: 863a0994-d46e-4f1d-ac2c-2437a6485781
+    TalkLines:
+    - Text: "\u3082\u3061\u308D\u3093\u3067\u304D\u307E\u3059\u3088\uFF01"
+      HighLightCharacterName: 
+      TextShowSpeed: 0.1
+      Events: []
+    - Text: "\u30B5\u30D6\u30AF\u30E9\u30B9\u30BB\u30EC\u30AF\u30BF\u30FC\u3092\u4F7F\u3046\u3053\u3068\u3067\u597D\u304D\u306A\u30A4\u30D9\u30F3\u30C8\u3092\u8FFD\u52A0\u3067\u304D\u307E\u3059"
+      HighLightCharacterName: 
+      TextShowSpeed: 0.1
+      Events: []
+    - Text: "\u4F8B\u3048\u3070\u3053\u3093\u306A\u306E\u3068\u304B..."
+      HighLightCharacterName: 
+      TextShowSpeed: 0.1
+      Events: []
+    - Text: "\u3053\u3093\u306A\u306E\u3082\u3067\u304D\u307E\u3059\u3002"
+      HighLightCharacterName: 
+      TextShowSpeed: 0.1
+      Events: []
+    Selections:
+    - SelectionTitle: "\u306A\u308B\u307B\u3069\u3002"
+      NextGroupGuid: cd0bd9ab-55dd-44a9-b5eb-0e96e05725be
+    Position: {x: 675.00006, y: 101.900055}
+  - Guid: 80238f91-44bf-4774-8efb-937bb636d788
+    TalkLines:
+    - Text: "\u305D\u3046\u3067\u3059\u304B\u3002\u305D\u308C\u3067\u306F\u3053\u308C\u3067\u81EA\u5DF1\u7D39\u4ECB\u3092\u7D42\u308F\u308A\u307E\u3059"
+      HighLightCharacterName: 
+      TextShowSpeed: 0.1
+      Events: []
+    - Text: "\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3057\u305F\u3002"
+      HighLightCharacterName: 
+      TextShowSpeed: 0.3
+      Events: []
     Selections: []
-    Position: {x: 928.78467, y: 142.99998}
+    Position: {x: 1931, y: 62}
   StartGroupGuid: a5641440-dbbc-4c47-b865-a624153fc382
   references:
     version: 2

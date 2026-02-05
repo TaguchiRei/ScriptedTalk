@@ -81,7 +81,7 @@ public class TalkLineData
 {
     public string Text;
     public string HighLightCharacterName = nameof(CharacterName.None);
-    public int TextShowSpeed;
+    public float TextShowSpeed = 0.1f;
     [SerializeReference, SubclassSelector] public IEvent[] Events;
 }
 

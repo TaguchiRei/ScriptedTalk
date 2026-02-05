@@ -10,6 +10,7 @@ public class InputDispatcher : MonoBehaviour, IInputDispatcher
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
+        SwitchActionMap(nameof(ActionMaps.Player));
     }
 
     public void RegisterActionStart(string actionMap, string actionName, Action<InputAction.CallbackContext> action)

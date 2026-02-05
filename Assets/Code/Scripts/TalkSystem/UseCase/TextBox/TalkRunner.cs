@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using ScriptedTalk;
+using UnityEngine;
 
 public class TalkRunner
 {
@@ -13,6 +14,8 @@ public class TalkRunner
     private ISoundSystem _soundSystem;
 
     private List<IEvent> _playingEvents;
+
+    private TalkState _talkState;
 
     public TalkRunner(
         TalkRuntimeModel trm,
@@ -30,6 +33,8 @@ public class TalkRunner
         _characterView = characterView;
         _effectView = effectView;
         _soundSystem = soundSystem;
+        _talkState = TalkState.Talking;
+        _playingEvents = new List<IEvent>();
     }
 
     public void StartTalk()
@@ -53,14 +58,15 @@ public class TalkRunner
             }
 
             _playingEvents.Clear();
-
-            return TalkState.Talking;
         }
-        else
+        else if (_talkState != TalkState.DisableOperation)
         {
+            Debug.Log("GetLine");
             var next = _trm.TryGetNextLine(out var textData);
+
             var name = textData.HighLightCharacterName;
             if (name == "None") name = string.Empty;
+            Debug.Log("AnimationText");
             _textView.AnimationText(name, textData.Text, textData.TextShowSpeed);
 
             foreach (var talkEvent in textData.Events)
@@ -97,6 +103,11 @@ public class TalkRunner
                     requireCharacterView.SetCharacterView(_characterView);
                 }
 
+                if (talkEvent is IRequireSelectView requireSelectView)
+                {
+                    requireSelectView.SetSelectView(_selectionView);
+                }
+
                 #endregion
 
                 _playingEvents.Add(talkEvent);
@@ -104,21 +115,27 @@ public class TalkRunner
                 talkEvent.Execute();
             }
 
-            if (next) return TalkState.Talking;
-            if (_trm.IsBranch())
+            if (!next)
             {
-                return TalkState.Question;
-            }
-            else
-            {
-                return TalkState.EndTalk;
+                if (_trm.IsBranch())
+                {
+                    _talkState = TalkState.DisableOperation;
+                    return TalkState.Question;
+                }
+                else
+                {
+                    _talkState = TalkState.EndTalk;
+                }
             }
         }
+
+        return _talkState;
     }
 
     public void AnsweredQuestion(int selectionNumber)
     {
         _trm.SelectNextGroup(selectionNumber);
+        _talkState = TalkState.Talking;
         OnNextButtonInput();
     }
 
@@ -132,5 +149,8 @@ public class TalkRunner
 
         /// <summary> 会話終了 </summary>
         EndTalk,
+
+        /// <summary> 操作を無効化する </summary>
+        DisableOperation
     }
 }

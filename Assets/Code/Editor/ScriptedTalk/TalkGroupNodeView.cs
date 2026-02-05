@@ -5,6 +5,7 @@ using UnityEditor;
 public class TalkGroupNodeView
 {
     public int GroupIndex { get; private set; }
+
     private Vector2 position;
     private Vector2 size = new Vector2(200f, 80f);
 
@@ -21,133 +22,161 @@ public class TalkGroupNodeView
 
     public void Draw(ContextData contextData)
     {
-        if (contextData == null || GroupIndex < 0 || GroupIndex >= contextData.Context.Count)
+        if (contextData == null)
             return;
 
-        size.y = CalculateHeight(contextData.Context[GroupIndex]);
+        SerializedObject so = new SerializedObject(contextData);
+        SerializedProperty contextProp = so.FindProperty("Context");
+
+        if (contextProp == null ||
+            !contextProp.isArray ||
+            GroupIndex < 0 ||
+            GroupIndex >= contextProp.arraySize)
+            return;
+
+        SerializedProperty groupProp = contextProp.GetArrayElementAtIndex(GroupIndex);
+
+        size.y = CalculateHeight(groupProp);
 
         GUIStyle style = isSelected ? EditorStyles.helpBox : GUI.skin.box;
 
         GUILayout.BeginArea(Rect, style);
-        DrawContents(contextData.Context[GroupIndex], contextData);
+        DrawContents(so, groupProp);
         GUILayout.EndArea();
+
+        so.ApplyModifiedProperties();
     }
 
-    private float CalculateHeight(TalkGroupData data)
+    private float CalculateHeight(SerializedProperty groupProp)
     {
         float height = 25f;
-        float lineHeight = EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+        float lineHeight =
+            EditorGUIUtility.singleLineHeight +
+            EditorGUIUtility.standardVerticalSpacing;
 
-        if (data.TalkLines != null)
-            height += data.TalkLines.Length * (lineHeight * 3); // TalkLine分の高さ
+        SerializedProperty talkLinesProp = groupProp.FindPropertyRelative("TalkLines");
+        SerializedProperty selectionsProp = groupProp.FindPropertyRelative("Selections");
 
-        if (data.Selections != null)
-            height += data.Selections.Count * lineHeight;
+        if (talkLinesProp != null && talkLinesProp.isArray)
+            height += talkLinesProp.arraySize * (lineHeight * 3);
 
-        height += lineHeight * 2; // Addボタン分
+        if (selectionsProp != null && selectionsProp.isArray)
+            height += selectionsProp.arraySize * lineHeight;
+
+        height += lineHeight * 2;
         return Mathf.Max(height, 80f);
     }
 
-    public void DrawContents(TalkGroupData data, ContextData contextData)
+    private void DrawContents(SerializedObject so, SerializedProperty groupProp)
     {
-        if (data == null) return;
+        SerializedProperty talkLinesProp = groupProp.FindPropertyRelative("TalkLines");
+        SerializedProperty selectionsProp = groupProp.FindPropertyRelative("Selections");
 
-        float lineHeight = EditorGUIUtility.singleLineHeight;
-
-        // --- TalkLines ---
-        if (data.TalkLines == null)
-            data.TalkLines = new TalkLineData[0];
-
-        // 「TalkLineがないとき用の Add ボタン」
-        if (data.TalkLines.Length == 0)
+        // ---------- TalkLines ----------
+        if (talkLinesProp != null)
         {
-            if (GUILayout.Button("Add TalkLine"))
+            if (talkLinesProp.arraySize == 0)
             {
-                data.TalkLines = new TalkLineData[] { new TalkLineData() };
-            }
-        }
-
-        for (int i = 0; i < data.TalkLines.Length; i++)
-        {
-            var line = data.TalkLines[i];
-            bool removeLine = false;
-
-            EditorGUILayout.BeginVertical("box");
-
-            Undo.RecordObject(contextData, "Edit TalkLine");
-
-            line.Text = EditorGUILayout.TextField("Text", line.Text);
-            line.HighLightCharacterName =
-                EditorGUILayout.TextField("HighLightCharacterID", line.HighLightCharacterName);
-            line.TextShowSpeed = EditorGUILayout.IntField("TextShowDuration", line.TextShowSpeed);
-
-            // Events 表示
-            if (line.Events != null)
-            {
-                for (int j = 0; j < line.Events.Length; j++)
+                if (GUILayout.Button("Add TalkLine"))
                 {
-                    EditorGUILayout.LabelField($"Event {j}: {line.Events[j]?.GetType().Name ?? "null"}");
+                    Undo.RecordObject(so.targetObject, "Add TalkLine");
+                    talkLinesProp.InsertArrayElementAtIndex(0);
                 }
             }
 
-            EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("Delete"))
-                removeLine = true;
-
-            if (GUILayout.Button("Add Below"))
+            for (int i = 0; i < talkLinesProp.arraySize; i++)
             {
-                var temp = new List<TalkLineData>(data.TalkLines);
-                temp.Insert(i + 1, new TalkLineData());
-                data.TalkLines = temp.ToArray();
-            }
+                SerializedProperty lineProp =
+                    talkLinesProp.GetArrayElementAtIndex(i);
 
-            EditorGUILayout.EndHorizontal();
+                EditorGUILayout.BeginVertical("box");
 
-            EditorGUILayout.EndVertical();
+                EditorGUILayout.PropertyField(
+                    lineProp.FindPropertyRelative("Text"));
 
-            if (removeLine)
-            {
-                var temp = new List<TalkLineData>(data.TalkLines);
-                temp.RemoveAt(i);
-                data.TalkLines = temp.ToArray();
-                i--;
+                EditorGUILayout.PropertyField(
+                    lineProp.FindPropertyRelative("HighLightCharacterName"));
+
+                EditorGUILayout.PropertyField(
+                    lineProp.FindPropertyRelative("TextShowSpeed"));
+
+                SerializedProperty eventsProp =
+                    lineProp.FindPropertyRelative("Events");
+
+                if (eventsProp != null && eventsProp.isArray)
+                {
+                    for (int j = 0; j < eventsProp.arraySize; j++)
+                    {
+                        SerializedProperty ev =
+                            eventsProp.GetArrayElementAtIndex(j);
+
+                        EditorGUILayout.LabelField(
+                            $"Event {j}: {ev.managedReferenceValue?.GetType().Name ?? "null"}");
+                    }
+                }
+
+                EditorGUILayout.BeginHorizontal();
+
+                if (GUILayout.Button("Delete"))
+                {
+                    Undo.RecordObject(so.targetObject, "Delete TalkLine");
+                    talkLinesProp.DeleteArrayElementAtIndex(i);
+                    EditorGUILayout.EndHorizontal();
+                    EditorGUILayout.EndVertical();
+                    break;
+                }
+
+                if (GUILayout.Button("Add Below"))
+                {
+                    Undo.RecordObject(so.targetObject, "Add TalkLine");
+                    talkLinesProp.InsertArrayElementAtIndex(i + 1);
+                }
+
+                EditorGUILayout.EndHorizontal();
+                EditorGUILayout.EndVertical();
             }
         }
 
-        // --- Selections ---
-        if (data.Selections == null)
-            data.Selections = new List<SelectionData>();
-
-        for (int i = 0; i < data.Selections.Count; i++)
+        // ---------- Selections ----------
+        if (selectionsProp != null)
         {
-            var sel = data.Selections[i];
-            bool removeSel = false;
-
-            EditorGUILayout.BeginHorizontal("box");
-            Undo.RecordObject(contextData, "Edit Selection");
-
-            sel.SelectionTitle = EditorGUILayout.TextField("Title", sel.SelectionTitle);
-            sel.NextGroupGuid = EditorGUILayout.TextField("NextGroupGuid", sel.NextGroupGuid);
-
-            if (GUILayout.Button("Delete"))
-                removeSel = true;
-
-            EditorGUILayout.EndHorizontal();
-
-            if (removeSel)
+            for (int i = 0; i < selectionsProp.arraySize; i++)
             {
-                data.Selections.RemoveAt(i);
-                i--;
+                SerializedProperty selProp =
+                    selectionsProp.GetArrayElementAtIndex(i);
+
+                EditorGUILayout.BeginHorizontal("box");
+
+                EditorGUILayout.PropertyField(
+                    selProp.FindPropertyRelative("SelectionTitle"));
+
+                EditorGUILayout.PropertyField(
+                    selProp.FindPropertyRelative("NextGroupGuid"));
+
+                if (GUILayout.Button("Delete"))
+                {
+                    Undo.RecordObject(so.targetObject, "Delete Selection");
+                    selectionsProp.DeleteArrayElementAtIndex(i);
+                    EditorGUILayout.EndHorizontal();
+                    break;
+                }
+
+                EditorGUILayout.EndHorizontal();
+            }
+
+            if (GUILayout.Button("Add Selection"))
+            {
+                Undo.RecordObject(so.targetObject, "Add Selection");
+                selectionsProp.InsertArrayElementAtIndex(selectionsProp.arraySize);
             }
         }
-
-        if (GUILayout.Button("Add Selection"))
-            data.Selections.Add(new SelectionData());
     }
 
+    public Vector2 GetConnectionPoint() =>
+        new Vector2(Rect.xMax, Rect.center.y);
 
-    public Vector2 GetConnectionPoint() => new Vector2(Rect.xMax, Rect.center.y);
-    public Vector2 GetInputPoint() => new Vector2(Rect.xMin, Rect.center.y);
+    public Vector2 GetInputPoint() =>
+        new Vector2(Rect.xMin, Rect.center.y);
 
     public void HandleEvent(Event e)
     {
@@ -157,7 +186,9 @@ public class TalkGroupNodeView
             GUI.changed = true;
         }
 
-        if (e.type == UnityEngine.EventType.MouseDrag && e.button == 0 && isSelected)
+        if (e.type == UnityEngine.EventType.MouseDrag &&
+            e.button == 0 &&
+            isSelected)
         {
             position += e.delta;
             e.Use();

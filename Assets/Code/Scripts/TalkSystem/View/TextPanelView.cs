@@ -1,8 +1,10 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.InputSystem;
 
 namespace ScriptedTalk
 {
@@ -33,10 +35,13 @@ namespace ScriptedTalk
         private CancellationTokenSource _cts;
         private TalkRunner _talkRunner;
         private TalkRuntimeModel _talkRuntimeModel;
+        private Action _talkEndAction;
 
-        public async UniTask StartTalking(string assetPath)
+        public async UniTask StartTalking(string assetPath, Action talkEndAction = null)
         {
+            TextAnimation = false;
             if (IsTalking) return;
+            Debug.Log("StartTalking");
             IsTalking = true;
 
             _textPanel.SetActive(true);
@@ -55,9 +60,47 @@ namespace ScriptedTalk
                 _characterView,
                 _effectView,
                 _soundSystem);
+            var dis = await ServiceLocator.Instance.TryGetSystemAsync<IInputDispatcher>();
+            if (dis.Item1)
+            {
+                dis.Item2.SwitchActionMap(nameof(ActionMaps.UI));
+                dis.Item2.RegisterActionCancelled(nameof(ActionMaps.UI), nameof(UIActions.Click), OnClick);
+                Debug.Log("LoadSucsess");
+            }
+            else
+            {
+                Debug.Log("LoadFail");
+            }
+
+            _talkEndAction = talkEndAction;
+            _talkRunner.OnNextButtonInput();
         }
 
-        public async UniTask TalkAsync(string characterName, string text, int textShowSpeed, CancellationToken ct)
+        public void OnClick(InputAction.CallbackContext context)
+        {
+            var state = _talkRunner.OnNextButtonInput();
+            Debug.Log(state);
+            switch (state)
+            {
+                case TalkRunner.TalkState.EndTalk:
+                    HideTextBox();
+                    _talkEndAction?.Invoke();
+                    break;
+                case TalkRunner.TalkState.Question:
+                    if (_talkRuntimeModel.TryGetSelection(out var selection))
+                    {
+                        Debug.Log("Get Selections");
+                        _selectionView.ShowSelection(selection, _talkRunner.AnsweredQuestion);
+                    }
+
+                    break;
+                case TalkRunner.TalkState.Talking:
+                case TalkRunner.TalkState.DisableOperation:
+                    break;
+            }
+        }
+
+        public async UniTask TalkAsync(string characterName, string text, float textShowSpeed, CancellationToken ct)
         {
             TextAnimation = true;
             _namePanel.SetActive(text != string.Empty);
@@ -65,14 +108,13 @@ namespace ScriptedTalk
             _mainText.text = text;
             _mainText.maxVisibleCharacters = 0;
 
-            var waitTime = 1f / textShowSpeed * 1000f;
             var startTime = Time.time;
 
             try
             {
-                for (int i = 0; i < text.Length; i++)
+                while (_mainText.maxVisibleCharacters < text.Length)
                 {
-                    _mainText.maxVisibleCharacters = (int)((Time.time - startTime) / waitTime);
+                    _mainText.maxVisibleCharacters = (int)((Time.time - startTime) / textShowSpeed);
                     await UniTask.Yield(ct);
                 }
             }
@@ -95,7 +137,7 @@ namespace ScriptedTalk
             _mainText.text = text;
         }
 
-        public void AnimationText(string characterName, string text, int textShowSpeed)
+        public void AnimationText(string characterName, string text, float textShowSpeed)
         {
             if (TextAnimation)
             {
@@ -104,6 +146,11 @@ namespace ScriptedTalk
 
                 ResetCancellationTokenSource();
 
+                _talkTask = TalkAsync(characterName, text, textShowSpeed, _cts.Token);
+            }
+            else
+            {
+                ResetCancellationTokenSource();
                 _talkTask = TalkAsync(characterName, text, textShowSpeed, _cts.Token);
             }
         }
@@ -135,7 +182,7 @@ namespace ScriptedTalk
 
         private void ResetCancellationTokenSource()
         {
-            if (_cts != null)
+            if (_cts != null && !_cts.IsCancellationRequested)
             {
                 _cts.Cancel();
                 _cts.Dispose();

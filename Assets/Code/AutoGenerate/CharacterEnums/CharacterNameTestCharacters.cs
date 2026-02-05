@@ -3,4 +3,5 @@ using System;
 public enum CharacterName
 {
     None,
+    ScriptedTalk,
 }

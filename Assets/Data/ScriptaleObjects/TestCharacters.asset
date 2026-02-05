@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d93ec5e336e02d144a0ef25dac45c815, type: 3}
   m_Name: TestCharacters
   m_EditorClassIdentifier: Assembly-CSharp::CharacterDataAsset
-  Characters: []
+  Characters:
+  - Name: ScriptedTalk
+    CharacterImages:
+    - {fileID: 0}
+    - {fileID: 0}

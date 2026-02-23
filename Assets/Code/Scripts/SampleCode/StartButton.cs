@@ -1,6 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace ScriptedTalk
 {
@@ -13,14 +14,7 @@ namespace ScriptedTalk
 
         public void StartTalkEvent()
         {
-            _task = _textPanelView.StartTalking(address);
-        }
-
-        private void Update()
-        {
-            if (_task.Status == UniTaskStatus.Canceled)
-            {
-            }
+            _task = _textPanelView.StartTalking(address, () => SceneManager.LoadScene("InGame"));
         }
     }
 }

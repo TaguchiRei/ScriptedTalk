@@ -11,5 +11,5 @@ public class CharacterDataAsset : ScriptableObject
 public class CharacterData
 {
     public string Name;
-    public Image[] CharacterImages;
+    public Sprite[] CharacterImages;
 }

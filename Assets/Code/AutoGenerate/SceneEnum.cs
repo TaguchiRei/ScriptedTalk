@@ -12,5 +12,6 @@ public enum OutListSceneName
     OutSceneTest,
     Test,
     Bootstrap,
+    TextScene,
     System,
 }

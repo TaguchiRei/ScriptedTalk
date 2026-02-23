@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace ScriptedTalk
 {
@@ -7,19 +8,22 @@ namespace ScriptedTalk
     {
         public Action EndAction { get; set; }
 
+        [SerializeField] private AudioClip audioClip;
+        private ISoundSystem _soundSystem;
+
+
         public void Execute()
         {
-            throw new NotImplementedException();
+            _soundSystem.PlaySoundEffect(audioClip);
         }
 
         public void Skip()
         {
-            throw new NotImplementedException();
         }
 
         public void SetSoundView(ISoundSystem soundSystem)
         {
-            throw new NotImplementedException();
+            _soundSystem = soundSystem;
         }
     }
 }

@@ -15,5 +15,4 @@ MonoBehaviour:
   Characters:
   - Name: ScriptedTalk
     CharacterImages:
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: f78782258139cf944b49ebdf88134b3d, type: 3}
